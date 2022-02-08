@@ -34,7 +34,7 @@ const routes = [
     // Memo part
     {
         path: "/memo",
-        name: "memo",
+        name: "Memo",
         component: () =>
             import(/* webpackChunkName: "memo" */ "@/views/Memo.vue"),
     },
