@@ -1,20 +1,42 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
 
 const routes = [
+    // Home part
     {
         path: "/",
         name: "Home",
-        component: Home,
+        component: () =>
+            import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
+    },
+
+    // Notice part
+    {
+        path: "/notice/:id",
+        name: "Notice",
+        component: () =>
+            import(/* webpackChunkName: "Notice" */ "@/views/Notice.vue"),
+        props: true,
+    },
+
+    // Auth part
+    {
+        path: "/auth",
+        name: "Auth",
+        component: () =>
+            import(/* webpackChunkName: "auth" */ "@/views/Auth/Move.vue"),
     },
     {
-        path: "/about",
-        name: "About",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
+        path: "/auth/callback",
         component: () =>
-            import(/* webpackChunkName: "about" */ "../views/About.vue"),
+            import(/* webpackChunkName: "auth" */ "@/views/Auth/Callback.vue"),
+    },
+
+    // Memo part
+    {
+        path: "/memo",
+        name: "memo",
+        component: () =>
+            import(/* webpackChunkName: "memo" */ "@/views/Memo.vue"),
     },
 ];
 
