@@ -32,6 +32,7 @@ export default {
                     const data = e.data;
 
                     localStorage.setItem(config.token.key, data.data.token);
+                    localStorage.setItem(config.token.exp, data.data.exp);
 
                     Swal.fire({
                         title: data.meta.code,

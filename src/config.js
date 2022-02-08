@@ -4,5 +4,6 @@ export default {
     },
     token: {
         key: "dmui-token",
+        exp: "dmui-exp",
     },
 };
