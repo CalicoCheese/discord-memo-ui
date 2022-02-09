@@ -35,6 +35,12 @@ const routes = [
             import(/* webpackChunkName: "auth" */ "@/views/Auth/Move.vue"),
     },
     {
+        name: "Logout",
+        path: "/auth/logout",
+        component: () =>
+            import(/* webpackChunkName: "auth" */ "@/views/Auth/Logout.vue"),
+    },
+    {
         path: "/auth/callback",
         component: () =>
             import(/* webpackChunkName: "auth" */ "@/views/Auth/Callback.vue"),
