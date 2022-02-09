@@ -47,6 +47,12 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "memo" */ "@/views/Memo.vue"),
     },
+
+    // 404
+    {
+        path: "/:catchAll(.*)*",
+        redirect: "/",
+    },
 ];
 
 const router = createRouter({
