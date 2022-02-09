@@ -14,7 +14,16 @@ const routes = [
         path: "/notice/:id",
         name: "Notice",
         component: () =>
-            import(/* webpackChunkName: "Notice" */ "@/views/Notice.vue"),
+            import(/* webpackChunkName: "notice" */ "@/views/Notice.vue"),
+        props: true,
+    },
+
+    // ToS part
+    {
+        path: "/tos",
+        name: "ToS",
+        component: () =>
+            import(/* webpackChunkName: "tos" */ "@/views/Tos.vue"),
         props: true,
     },
 
