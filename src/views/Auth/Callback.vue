@@ -49,16 +49,27 @@ export default {
                     });
                 })
                 .catch((e) => {
-                    const data = e.response.data;
-                    Swal.fire({
-                        icon: "error",
-                        title: data.meta.code,
-                        text: data.meta.message,
-                        timer: 2022,
-                        timerProgressBar: true,
-                    }).then(() => {
-                        router.push({ name: "Home" });
-                    });
+                    if (e.response == undefined) {
+                        Swal.fire({
+                            icon: "error",
+                            text: "알수없는 오류가 발생했습니다.",
+                            timer: 2022,
+                            timerProgressBar: true,
+                        }).then(() => {
+                            router.push({ name: "Home" });
+                        });
+                    } else {
+                        const data = e.response.data;
+                        Swal.fire({
+                            icon: "error",
+                            title: data.meta.code,
+                            text: data.meta.message,
+                            timer: 2022,
+                            timerProgressBar: true,
+                        }).then(() => {
+                            router.push({ name: "Home" });
+                        });
+                    }
                 });
         }
     },
