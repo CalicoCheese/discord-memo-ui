@@ -1,6 +1,9 @@
 <template>
     <router-view />
-    <footer>&copy; 2022 Calico Cheese</footer>
+
+    <footer class="footer">
+        <div class="content has-text-centered">&copy; 2022 Calico Cheese</div>
+    </footer>
 </template>
 
 <script>
