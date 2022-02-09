@@ -19,8 +19,10 @@ export default {
 
         if (code == undefined) {
             Swal.fire({
-                title: "?",
+                icon: "error",
                 text: "올바른 접근이 아닙니다.",
+                timer: 2022,
+                timerProgressBar: true,
             }).then(() => {
                 router.push({ name: "Home" });
             });
@@ -35,8 +37,11 @@ export default {
                     localStorage.setItem(config.token.exp, data.data.exp);
 
                     Swal.fire({
+                        icon: "success",
                         title: data.meta.code,
                         text: data.meta.message,
+                        timer: 2022,
+                        timerProgressBar: true,
                     }).then(() => {
                         router.push({ name: "Memo" });
                     });
@@ -44,8 +49,11 @@ export default {
                 .catch((e) => {
                     const data = e.response.data;
                     Swal.fire({
+                        icon: "error",
                         title: data.meta.code,
                         text: data.meta.message,
+                        timer: 2022,
+                        timerProgressBar: true,
                     }).then(() => {
                         router.push({ name: "Home" });
                     });
