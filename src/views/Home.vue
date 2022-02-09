@@ -1,8 +1,39 @@
 <template>
-    <div>
-        <h1>개발중!</h1>
-        <p>메모 서비스 개발중입니다...</p>
-    </div>
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-1">개발중</h1>
+            <p>
+                <a
+                    href="https://github.com/CalicoCheese/discord-memo-ui"
+                    target="_blank"
+                >
+                    discord-memo-ui
+                </a>
+            </p>
+            <p>
+                <a
+                    href="https://github.com/CalicoCheese/discord-memo-api"
+                    target="_blank"
+                >
+                    discord-memo-api
+                </a>
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <router-link class="button is-info" :to="{ name: 'Auth' }">
+                로그인
+            </router-link>
+            &nbsp;
+            <router-link class="button is-dark" :to="{ name: 'Logout' }">
+                로그아웃
+            </router-link>
+
+            <p>* 로컬환경에서 개발서버를 켜야합니다.</p>
+        </div>
+    </section>
 </template>
 
 <script>
