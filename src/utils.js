@@ -1,5 +1,9 @@
 import config from "@/config";
 
+export function getToken() {
+    return localStorage.getItem(config.token.key);
+}
+
 export function login() {
     const exp = Number(localStorage.getItem(config.token.exp));
 
@@ -32,7 +36,7 @@ export function login() {
     // 현재시간이 유효시간보다 크고 만료시간보다 작다면
     if (iat <= now < exp) {
         // 토큰을 불러오고
-        const token = localStorage.getItem(config.token.key);
+        const token = getToken();
 
         // 토큰이 null이 아니라면 로그인 상태임
         // 다만 그 토큰이 유효한 토큰인지는 **모름**
