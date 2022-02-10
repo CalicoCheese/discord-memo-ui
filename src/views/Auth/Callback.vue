@@ -52,7 +52,7 @@ export default {
                     if (e.response == undefined) {
                         Swal.fire({
                             icon: "error",
-                            text: "알수없는 오류가 발생했습니다.",
+                            text: "알 수 없는 오류가 발생했습니다.",
                             timer: 2022,
                             timerProgressBar: true,
                         }).then(() => {
