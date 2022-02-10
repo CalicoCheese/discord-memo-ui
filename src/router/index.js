@@ -8,6 +8,12 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
     },
+    {
+        path: "/invite-bot",
+        name: "Invite",
+        component: () =>
+            import(/* webpackChunkName: "home" */ "@/views/Invite.vue"),
+    },
 
     // Notice part
     {
