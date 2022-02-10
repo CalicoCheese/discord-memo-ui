@@ -35,6 +35,7 @@ export default {
                 .then((e) => {
                     const data = e.data;
 
+                    // 토큰과 만료시간 저장
                     localStorage.setItem(config.token.key, data.data.token);
                     localStorage.setItem(config.token.exp, data.data.exp);
 
