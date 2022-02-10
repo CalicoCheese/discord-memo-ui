@@ -60,3 +60,15 @@ export default {
     },
 };
 </script>
+
+<style>
+html,
+body {
+    height: 100%;
+    background-color: #fafafa;
+}
+
+#app {
+    background-color: white;
+}
+</style>
