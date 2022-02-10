@@ -39,15 +39,26 @@ export default {
                     localStorage.setItem(config.token.key, data.data.token);
                     localStorage.setItem(config.token.exp, data.data.exp);
 
-                    Swal.fire({
-                        icon: "success",
-                        title: data.meta.code,
-                        text: data.meta.message,
-                        timer: 2022,
-                        timerProgressBar: true,
-                    }).then(() => {
-                        router.push({ name: "Memo" });
-                    });
+                    if (data.meta.code == 201) {
+                        Swal.fire({
+                            icon: "success",
+                            title: data.meta.code,
+                            text: data.meta.message,
+                            timer: 2022,
+                            timerProgressBar: true,
+                        }).then(() => {
+                            router.push({ name: "Memo" });
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "info",
+                            text: data.meta.message,
+                            timer: 2022,
+                            timerProgressBar: true,
+                        }).then(() => {
+                            router.push({ name: "Update" });
+                        });
+                    }
                 })
                 .catch((e) => {
                     if (e.response == undefined) {
