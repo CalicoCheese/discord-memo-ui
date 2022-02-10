@@ -22,6 +22,14 @@
             </router-link>
 
             <router-link
+                class="button is-link is-medium"
+                v-if="isLogin == true"
+                :to="{ name: 'Memo' }"
+            >
+                메모
+            </router-link>
+
+            <router-link
                 class="button is-info is-medium"
                 :to="{ name: 'Invite' }"
                 target="_blank"
