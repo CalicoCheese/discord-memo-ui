@@ -18,12 +18,19 @@ const routes = [
         props: true,
     },
 
-    // ToS part
+    // ToS and Privacy part
     {
         path: "/tos",
         name: "ToS",
         component: () =>
             import(/* webpackChunkName: "tos" */ "@/views/Tos.vue"),
+        props: true,
+    },
+    {
+        path: "/privacy",
+        name: "privacy",
+        component: () =>
+            import(/* webpackChunkName: "tos" */ "@/views/Privacy.vue"),
         props: true,
     },
 
