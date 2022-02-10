@@ -2,7 +2,7 @@
     <section class="section">
         <div class="container">
             <h1 class="title is-1">메모</h1>
-            <div class="content is-large">
+            <div class="content is-medium">
                 <p>디스코드 봇한테 DM을 보내면 메모가 등록됩니다.</p>
             </div>
 
@@ -34,14 +34,14 @@
     <section class="section">
         <div class="container">
             <h1 class="title is-2">암호화</h1>
-            <div class="content is-large"></div>
+            <div class="content is-medium"></div>
         </div>
     </section>
 
     <section class="section">
         <div class="container">
             <h1 class="title is-2">오픈소스!</h1>
-            <div class="content is-large">
+            <div class="content is-medium">
                 <blockquote>
                     개발이 완료되지 않는 프로젝트는 비공개 상태입니다.
                 </blockquote>
@@ -67,7 +67,7 @@
     <section class="section">
         <div class="container">
             <h1 class="title is-2">버그 &amp; 피드백</h1>
-            <div class="content is-large">
+            <div class="content is-medium">
                 <p>
                     사용중 버그를 발견했거나 요청하고 싶은 기능이 있다면 다음
                     <a :href="home.email">이메일</a>로 연락해주세요.
