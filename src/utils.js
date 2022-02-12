@@ -46,3 +46,9 @@ export function login() {
         return false;
     }
 }
+
+export function logout() {
+    Object.keys(config.token).forEach((key) => {
+        localStorage.removeItem(config.token[key]);
+    });
+}

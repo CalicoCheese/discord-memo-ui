@@ -10,25 +10,22 @@
 <script>
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import config from "@/config";
+import { logout } from "@/utils";
 
 export default {
     setup() {
+        logout();
+
         const router = useRouter();
-
-        Object.keys(config.token).forEach((key) => {
-            localStorage.removeItem(config.token[key]);
-
-            Swal.fire({
-                icon: "info",
-                title: "완료",
-                text: "저장된 인증 정보를 삭제했습니다.",
-                timer: 2022,
-                timerProgressBar: true,
-                showConfirmButton: false,
-            }).then(() => {
-                router.push({ name: "Home" });
-            });
+        Swal.fire({
+            icon: "info",
+            title: "완료",
+            text: "저장된 인증 정보를 삭제했습니다.",
+            timer: 2022,
+            timerProgressBar: true,
+            showConfirmButton: false,
+        }).then(() => {
+            router.push({ name: "Home" });
         });
     },
 };
