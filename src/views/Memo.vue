@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import config from "@/config";
-import { getToken, login } from "@/utils";
+import { getToken, login, logout } from "@/utils";
 
 export default {
     setup() {
@@ -87,6 +87,11 @@ export default {
                         });
                     } else {
                         const data = e.response.data;
+
+                        if (data.meta.code == 401) {
+                            logout();
+                        }
+
                         Swal.fire({
                             icon: "error",
                             title: data.meta.code,
