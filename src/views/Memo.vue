@@ -2,6 +2,15 @@
     <section class="section" v-for:="memo in memos">
         <div class="container">
             <p>{{ memo.text }}</p>
+
+    <section class="section">
+        <div class="container">
+            <button
+                class="button is-large is-link is-fullwidth"
+                @click="fetchMemo()"
+            >
+                더 불러오기
+            </button>
         </div>
     </section>
 </template>
@@ -18,14 +27,14 @@ export default {
     setup() {
         const router = useRouter();
         const memos = ref([]);
-        const fetchMemo = (after) => {
-            console.log(after);
+        const lastId = ref(0);
 
-            for (let i = 1; i <= 100; i++) {
+        const fetchMemo = () => {
+            for (let i = lastId.value + 10; lastId.value <= i; lastId.value++) {
                 memos.value.push({
-                    id: i,
+                    id: lastId.value,
                     edit: Date.now() / 1000,
-                    text: `# ${i} 번째 메모 입니다.\n\n[ ] ${i}번째 메모의 할일`,
+                    text: `# 테스트 메모`,
                 });
             }
         };
@@ -107,6 +116,8 @@ export default {
 
         return {
             memos,
+            lastId,
+            fetchMemo,
         };
     },
 };
