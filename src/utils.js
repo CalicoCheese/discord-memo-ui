@@ -52,3 +52,24 @@ export function logout() {
         localStorage.removeItem(config.token[key]);
     });
 }
+export function setPassword(password_hashed) {
+    if (password_hashed.length == 128) {
+        sessionStorage.setItem(config.token.password, password_hashed);
+
+        return true;
+    } else {
+        return false;
+    }
+}
+
+export function getPassword() {
+    const pass = sessionStorage.getItem(config.token.password);
+
+    if (pass == null || pass == undefined) {
+        return undefined;
+    } else if (pass.length == 128) {
+        return pass;
+    } else {
+        return undefined;
+    }
+}

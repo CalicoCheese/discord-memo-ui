@@ -1,0 +1,174 @@
+<template>
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-1">비밀번호를 입력해주세요</h1>
+
+            <div class="field">
+                <input
+                    id="pw-box"
+                    class="input"
+                    type="password"
+                    v-model="password"
+                />
+            </div>
+
+            <button
+                class="button is-primary is-large is-fullwidth"
+                @click="onConfirm()"
+            >
+                다음
+            </button>
+        </div>
+    </section>
+</template>
+
+<script>
+import axios from "axios";
+import Swal from "sweetalert2";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import sha512 from "crypto-js/sha512";
+import config from "@/config";
+import { getToken, login, logout } from "@/utils";
+import { setPassword } from "@/utils";
+
+export default {
+    setup() {
+        const router = useRouter();
+        const method = ref("GET");
+        const password = ref("");
+
+        const onConfirm = () => {
+            if (password.value.length >= 6) {
+                const hash = sha512(password.value).toString();
+
+                axios({
+                    url: `${config.api.host}/auth/password`,
+                    method: method.value,
+                    headers: {
+                        Authorization: `Bearer ${getToken()}`,
+                        "x-dm-password": hash,
+                    },
+                })
+                    .then((e) => {
+                        const data = e.data;
+                        setPassword(hash);
+
+                        Swal.fire({
+                            icon: "success",
+                            text: data.meta.message,
+                            timer: 2022,
+                            timerProgressBar: true,
+                        }).then(() => {
+                            router.push({ name: "Memo" });
+                        });
+                    })
+                    .catch((e) => {
+                        if (e.response == undefined) {
+                            Swal.fire({
+                                icon: "error",
+                                text: "알 수 없는 오류가 발생했습니다.",
+                                timer: 2022,
+                                timerProgressBar: true,
+                            }).then(() => {
+                                router.push({ name: "Home" });
+                            });
+                        } else {
+                            const data = e.response.data;
+
+                            if (data.meta.code == 401) {
+                                logout();
+                            }
+
+                            Swal.fire({
+                                icon: "error",
+                                title: data.meta.code,
+                                text: data.meta.message,
+                                timer: 2022,
+                                timerProgressBar: true,
+                            }).then(() => {
+                                console.log(data.data.pushLock);
+                                if (
+                                    data.data.pushLock == undefined ||
+                                    data.data.pushLock == false
+                                ) {
+                                    router.push({ name: "Home" });
+                                }
+                            });
+                        }
+                    });
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    text: "메모 비밀번호는 6자 이상 길게 설정해야 합니다.",
+                    timer: 2022,
+                    timerProgressBar: true,
+                });
+            }
+        };
+
+        if (!login()) {
+            Swal.fire({
+                icon: "warning",
+                text: "메모를 확인하려면 로그인해야 합니다.",
+                timer: 2022,
+                timerProgressBar: true,
+                showConfirmButton: false,
+            }).then(() => {
+                router.push({ name: "Home" });
+            });
+        } else {
+            axios({
+                url: `${config.api.host}/auth/check`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${getToken()}`,
+                },
+            })
+                .then((e) => {
+                    const data = e.data;
+
+                    if (data.data.password) {
+                        // 비밀번호 설정이 필요함
+                        method.value = "POST";
+                    } else {
+                        method.value = "GET";
+                    }
+                })
+                .catch((e) => {
+                    if (e.response == undefined) {
+                        Swal.fire({
+                            icon: "error",
+                            text: "알 수 없는 오류가 발생했습니다.",
+                            timer: 2022,
+                            timerProgressBar: true,
+                        }).then(() => {
+                            router.push({ name: "Home" });
+                        });
+                    } else {
+                        const data = e.response.data;
+
+                        if (data.meta.code == 401) {
+                            logout();
+                        }
+
+                        Swal.fire({
+                            icon: "error",
+                            title: data.meta.code,
+                            text: data.meta.message,
+                            timer: 2022,
+                            timerProgressBar: true,
+                        }).then(() => {
+                            router.push({ name: "Home" });
+                        });
+                    }
+                });
+        }
+
+        return {
+            password,
+            onConfirm,
+        };
+    },
+};
+</script>

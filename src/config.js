@@ -5,6 +5,7 @@ export default {
     token: {
         key: "dmui-token",
         exp: "dmui-exp",
+        password: "dmui-pw",
     },
     home: {
         email: "mailto:team@calicocheese.xyz",

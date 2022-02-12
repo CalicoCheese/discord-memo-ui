@@ -72,6 +72,12 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "memo" */ "@/views/Memo.vue"),
     },
+    {
+        path: "/memo/password",
+        name: "Password",
+        component: () =>
+            import(/* webpackChunkName: "memo" */ "@/views/Password.vue"),
+    },
 
     // 404
     {
