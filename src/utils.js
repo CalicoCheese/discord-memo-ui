@@ -4,6 +4,21 @@ export function getToken() {
     return localStorage.getItem(config.token.key);
 }
 
+export function getPayload() {
+    const token = getToken();
+
+    if (token == null || token == undefined) {
+        return undefined;
+    }
+
+    return JSON.parse(
+        Buffer.from(
+            localStorage.getItem("dmui-token").split(".")[1],
+            "base64"
+        ).toString()
+    );
+}
+
 export function login() {
     const exp = Number(localStorage.getItem(config.token.exp));
 
