@@ -1,19 +1,45 @@
 <template>
     <section class="section">
         <div class="container">
-            <h1 class="title is-1">비밀번호를 입력해주세요</h1>
+            <div class="is-hidden-desktop">
+                <h1 class="title is-1 nb">비밀번호를</h1>
+                <h1 class="title is-1 nu">입력해주세요</h1>
+            </div>
 
+            <div class="is-hidden-touch">
+                <h1 class="title is-1">비밀번호를 입력해주세요</h1>
+            </div>
+
+            <div class="content is-medium">
+                <ol>
+                    <li>비밀번호의 길이는 <b>6자</b> 이상 이어야 합니다.</li>
+                    <li>
+                        비밀번호는 클라이언트에 저장됨으로 메모 사용 후 반드시
+                        로그아웃 해야 합니다.
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
             <div class="field">
                 <input
                     id="pw-box"
-                    class="input"
+                    class="input is-large"
                     type="password"
                     v-model="password"
+                    @keypress.enter="onConfirm()"
                 />
             </div>
+        </div>
+    </section>
 
+    <section class="section">
+        <div class="container">
             <button
-                class="button is-primary is-large is-fullwidth"
+                class="button is-info is-large is-fullwidth"
                 @click="onConfirm()"
             >
                 다음
@@ -172,3 +198,14 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.nb {
+    /* No margin Bottom */
+    margin-bottom: 0;
+}
+.nu {
+    /* No margin Up */
+    margin-top: 0;
+}
+</style>
