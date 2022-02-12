@@ -48,10 +48,10 @@ export function login() {
 }
 
 export function logout() {
-    Object.keys(config.token).forEach((key) => {
-        localStorage.removeItem(config.token[key]);
-    });
+    localStorage.clear();
+    sessionStorage.clear();
 }
+
 export function setPassword(password_hashed) {
     if (password_hashed.length == 128) {
         sessionStorage.setItem(config.token.password, password_hashed);
