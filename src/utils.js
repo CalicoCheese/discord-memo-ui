@@ -132,15 +132,14 @@ export function getMemoKey() {
     };
 
     if (process.env.NODE_ENV !== "production") {
-        console.debug(`from base64 import b64decode`);
-        console.debug(`key = b64decode(b"${key}").hex()`);
-        console.debug(`iv = b64decode(b"${iv}").hex()`);
-        console.debug(`============================`);
-        console.debug(`key == "${Buffer.from(key, "base64").toString("hex")}"`);
-        console.debug(`iv == "${Buffer.from(iv, "base64").toString("hex")}"`);
-        console.debug(`============================`);
-        console.debug(`${pbk.key}`);
-        console.debug(`${pbk.iv}`);
+        console.debug(`
+from base64 import b64decode\n
+key = b64decode(b"${key}").hex()
+iv = b64decode(b"${iv}").hex()\n
+key == "${Buffer.from(key, "base64").toString("hex")}"
+iv == "${Buffer.from(iv, "base64").toString("hex")}"\n
+print(f"생성된 키: ${pbk.key}")
+print(f"생성된 iv: ${pbk.iv}")`);
     }
 
     return pbk;
