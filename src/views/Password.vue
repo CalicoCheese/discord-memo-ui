@@ -56,13 +56,18 @@ import { useRouter } from "vue-router";
 import sha512 from "crypto-js/sha512";
 import config from "@/config";
 import { getToken, login, logout } from "@/utils";
-import { setPassword } from "@/utils";
+import { getPassword, setPassword } from "@/utils";
 
 export default {
     setup() {
         const router = useRouter();
         const method = ref("GET");
         const password = ref("");
+
+        // 비밀번호를 입력 받았다면 메모 페이지로 이동
+        if (getPassword() != undefined) {
+            router.push({ name: "Memo" });
+        }
 
         const onConfirm = () => {
             if (password.value.length >= 6) {
