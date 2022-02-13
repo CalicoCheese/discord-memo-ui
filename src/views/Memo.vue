@@ -50,17 +50,61 @@ export default {
                     router.push({ name: "Password" });
                 });
             } else {
-                for (
-                    let i = lastId.value + 10;
-                    lastId.value <= i;
-                    lastId.value++
-                ) {
-                    memos.value.push({
-                        id: lastId.value,
-                        edit: Date.now() / 1000,
-                        text: `# 테스트 메모`,
+                axios({
+                    method: "GET",
+                    url: `${config.api.host}/memo`,
+                    params: {
+                        after: lastId.value,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${getToken()}`,
+                    },
+                })
+                    .then((e) => {
+                        const data = e.data;
+
+                        if (lastId.value == 0 && data.data.length == 0) {
+                            Swal.fire({
+                                icon: "info",
+                                text: "저장된 메모가 없습니다!",
+                                timer: 2022,
+                                timerProgressBar: true,
+                            });
+                        } else {
+                            let this_last_id = lastId.value;
+
+                            data.data.array.forEach((e) => {
+                                memos.value.push(e);
+                                this_last_id = e.id;
+                            });
+
+                            lastId.value = this_last_id;
+                        }
+                    })
+                    .catch((e) => {
+                        if (e.response == undefined) {
+                            Swal.fire({
+                                icon: "error",
+                                text: "알 수 없는 오류가 발생했습니다.",
+                                timer: 2022,
+                                timerProgressBar: true,
+                            });
+                        } else {
+                            const data = e.response.data;
+
+                            if (data.meta.code == 401) {
+                                logout();
+                            }
+
+                            Swal.fire({
+                                icon: "error",
+                                title: data.meta.code,
+                                text: data.meta.message,
+                                timer: 2022,
+                                timerProgressBar: true,
+                            });
+                        }
                     });
-                }
             }
         };
 
