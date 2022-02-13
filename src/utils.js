@@ -1,3 +1,4 @@
+import { createHash, pbkdf2Sync } from "crypto";
 import config from "@/config";
 
 export function getToken() {
@@ -87,4 +88,60 @@ export function getPassword() {
     } else {
         return undefined;
     }
+}
+
+export function getMemoKey() {
+    const password = getPassword();
+    const payload = getPayload();
+
+    if (password == undefined || payload == undefined) {
+        return undefined;
+    }
+
+    const i_am_not_salt_just_a_message =
+        "change da world my final message. Goodbye";
+
+    const sha512 = createHash("sha512");
+    const key = sha512
+        .update(
+            `${payload.user.id}+${password}+${i_am_not_salt_just_a_message}`
+        )
+        .digest("base64");
+
+    const iv = sha512
+        .update(
+            `${payload.user.id}+${i_am_not_salt_just_a_message}+${password}+`
+        )
+        .digest("base64");
+
+    const pbk = {
+        key: pbkdf2Sync(
+            Buffer.from(key, "base64"),
+            Buffer.from(iv, "base64"),
+            10000,
+            256 / 8,
+            "sha512"
+        ).toString("hex"),
+        iv: pbkdf2Sync(
+            Buffer.from(iv, "base64"),
+            Buffer.from(key, "base64"),
+            10000,
+            128 / 8,
+            "sha512"
+        ).toString("hex"),
+    };
+
+    if (process.env.NODE_ENV !== "production") {
+        console.debug(`from base64 import b64decode`);
+        console.debug(`key = b64decode(b"${key}").hex()`);
+        console.debug(`iv = b64decode(b"${iv}").hex()`);
+        console.debug(`============================`);
+        console.debug(`key == "${Buffer.from(key, "base64").toString("hex")}"`);
+        console.debug(`iv == "${Buffer.from(iv, "base64").toString("hex")}"`);
+        console.debug(`============================`);
+        console.debug(`${pbk.key}`);
+        console.debug(`${pbk.iv}`);
+    }
+
+    return pbk;
 }

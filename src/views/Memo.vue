@@ -25,7 +25,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import config from "@/config";
 import { getToken, login, logout } from "@/utils";
-import { getPassword } from "@/utils";
+import { getPassword, getMemoKey } from "@/utils";
 
 export default {
     setup() {
@@ -37,6 +37,9 @@ export default {
         let passwordSetup = false;
 
         const fetchMemo = () => {
+            // 메모 복호화 키 발급
+            /* const memoKey = */ getMemoKey();
+
             if (passwordSetup == true || password == undefined) {
                 Swal.fire({
                     icon: "warning",
