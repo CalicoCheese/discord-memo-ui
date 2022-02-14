@@ -1,0 +1,57 @@
+import axios from "axios";
+import Swal from "sweetalert2";
+import { getToken, defaultError } from "@/utils";
+import config from "@/config";
+
+function editMemo(m) {
+    axios({
+        method: "PUT",
+        url: `${config.api.host}/memo/${m.id}`,
+        headers: {
+            Authorization: `Bearer ${getToken()}`,
+        },
+        data: {
+            edit: m.edit,
+            text: m.text.trim(),
+            encrypted: m.encrypted,
+        },
+    })
+        .then((e) => {
+            const data = e.data;
+            Swal.fire({
+                icon: "success",
+                text: data.meta.message,
+                timer: 2022,
+                timerProgressBar: true,
+            });
+        })
+        .catch((e) => defaultError(e));
+}
+
+function deleteMemo(m) {
+    axios({
+        method: "DELETE",
+        url: `${config.api.host}/memo/${m.id}`,
+        headers: {
+            Authorization: `Bearer ${getToken()}`,
+        },
+    })
+        .then((e) => {
+            const data = e.data;
+            Swal.fire({
+                icon: "success",
+                text: data.meta.message,
+                timer: 2022,
+                timerProgressBar: true,
+            });
+        })
+        .catch((e) => defaultError(e));
+}
+
+export function saveMemo(m) {
+    if (m.text.trim().length == 0) {
+        deleteMemo(m);
+    } else {
+        editMemo(m);
+    }
+}

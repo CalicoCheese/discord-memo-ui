@@ -31,6 +31,7 @@ import config from "@/config";
 import { getToken, login } from "@/utils";
 import { getPassword, getMemoKey } from "@/utils";
 import { defaultError } from "@/utils";
+import { saveMemo } from "@/memo";
 
 export default {
     setup() {
@@ -44,7 +45,30 @@ export default {
         // 메모 복호화 키 발급
         /* const memoKey = */ getMemoKey();
 
+        const onBlur = (i) => {
+            Swal.fire({
+                icon: "question",
+                text: "메모를 저장할까요?",
+                showConfirmButton: true,
+                showCancelButton: true,
+                confirmButtonText: "네",
+                cancelButtonText: "아니요",
+                timer: 2077,
+                timerProgressBar: true,
+            }).then((e) => {
+                if (e.isConfirmed) {
+                    saveMemo(memos.value[i]);
+                } else {
+                    Swal.fire({
+                        icon: "warning",
+                        text: "메모를 저장하지 않았습니다",
+                        timer: 1984,
+                        timerProgressBar: true,
+                    });
+                }
+            });
         };
+
         const fetchMemo = () => {
             if (passwordSetup == true || password == undefined) {
                 Swal.fire({
