@@ -1,7 +1,7 @@
 <template>
     <section class="section" v-for:="memo in memos">
         <div class="container">
-            <h1 class="title is-2">{{ memo.id }}</h1>
+            <h1 class="title is-2">{{ getDate(memo.edit) }}</h1>
             <div>{{ memo.text }}</div>
         </div>
     </section>
@@ -73,7 +73,8 @@ export default {
                         } else {
                             let this_last_id = lastId.value;
 
-                            data.data.array.forEach((e) => {
+                            data.data.forEach((e) => {
+                                console.log(e);
                                 memos.value.push(e);
                                 this_last_id = e.id;
                             });
@@ -82,6 +83,7 @@ export default {
                         }
                     })
                     .catch((e) => {
+                        console.error(e);
                         if (e.response == undefined) {
                             Swal.fire({
                                 icon: "error",
@@ -188,6 +190,10 @@ export default {
             memos,
             lastId,
             fetchMemo,
+            getDate: (ts) => {
+                let d = new Date(ts * 1000);
+                return d.toLocaleString();
+            },
         };
     },
 };
