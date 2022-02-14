@@ -30,7 +30,7 @@
                         <input type="checkbox" v-model="pri_agree" />
                         나는
                         <router-link
-                            :to="{ name: 'privacy' }"
+                            :to="{ name: 'Privacy' }"
                             target="_blank"
                             @click="pri_read = true"
                         >

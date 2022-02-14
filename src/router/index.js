@@ -34,7 +34,7 @@ const routes = [
     },
     {
         path: "/privacy",
-        name: "privacy",
+        name: "Privacy",
         component: () =>
             import(/* webpackChunkName: "tos" */ "@/views/Privacy.vue"),
         props: true,
