@@ -1,4 +1,6 @@
 import { createHash, pbkdf2Sync } from "crypto";
+import Swal from "sweetalert2";
+import { useRouter } from "vue-router";
 import config from "@/config";
 
 export function getToken() {
@@ -143,4 +145,35 @@ print(f"생성된 iv: ${pbk.iv}")`);
     }
 
     return pbk;
+}
+
+export function defaultError(e) {
+    const router = useRouter();
+
+    if (e.response == undefined) {
+        Swal.fire({
+            icon: "error",
+            text: "알 수 없는 오류가 발생했습니다.",
+            timer: 2022,
+            timerProgressBar: true,
+        });
+    } else {
+        const data = e.response.data;
+
+        if (data.meta.code == 401) {
+            logout();
+        }
+
+        Swal.fire({
+            icon: "error",
+            title: data.meta.code,
+            text: data.meta.message,
+            timer: 2022,
+            timerProgressBar: true,
+        }).then(() => {
+            if (!login()) {
+                router.push({ name: "Home" });
+            }
+        });
+    }
 }

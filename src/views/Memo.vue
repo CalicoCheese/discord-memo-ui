@@ -24,8 +24,9 @@ import Swal from "sweetalert2";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import config from "@/config";
-import { getToken, login, logout } from "@/utils";
+import { getToken, login } from "@/utils";
 import { getPassword, getMemoKey } from "@/utils";
+import { defaultError } from "@/utils";
 
 export default {
     setup() {
@@ -81,31 +82,7 @@ export default {
                             lastId.value = this_last_id;
                         }
                     })
-                    .catch((e) => {
-                        console.error(e);
-                        if (e.response == undefined) {
-                            Swal.fire({
-                                icon: "error",
-                                text: "알 수 없는 오류가 발생했습니다.",
-                                timer: 2022,
-                                timerProgressBar: true,
-                            });
-                        } else {
-                            const data = e.response.data;
-
-                            if (data.meta.code == 401) {
-                                logout();
-                            }
-
-                            Swal.fire({
-                                icon: "error",
-                                title: data.meta.code,
-                                text: data.meta.message,
-                                timer: 2022,
-                                timerProgressBar: true,
-                            });
-                        }
-                    });
+                    .catch((e) => defaultError(e));
             }
         };
 
@@ -155,34 +132,7 @@ export default {
                         fetchMemo();
                     }
                 })
-                .catch((e) => {
-                    if (e.response == undefined) {
-                        Swal.fire({
-                            icon: "error",
-                            text: "알 수 없는 오류가 발생했습니다.",
-                            timer: 2022,
-                            timerProgressBar: true,
-                        }).then(() => {
-                            router.push({ name: "Home" });
-                        });
-                    } else {
-                        const data = e.response.data;
-
-                        if (data.meta.code == 401) {
-                            logout();
-                        }
-
-                        Swal.fire({
-                            icon: "error",
-                            title: data.meta.code,
-                            text: data.meta.message,
-                            timer: 2022,
-                            timerProgressBar: true,
-                        }).then(() => {
-                            router.push({ name: "Home" });
-                        });
-                    }
-                });
+                .catch((e) => defaultError(e));
         }
 
         return {
