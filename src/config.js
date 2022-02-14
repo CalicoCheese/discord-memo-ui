@@ -6,6 +6,7 @@ export const token = {
     key: "dmui-token",
     exp: "dmui-exp",
     password: "dmui-pw",
+    admin: "dmui-admin",
 };
 
 export const home = {

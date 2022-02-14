@@ -22,6 +22,19 @@ export function getPayload() {
     );
 }
 
+export function setAdmin() {
+    localStorage.setItem(token.admin, "yes");
+}
+
+export function notAdmin() {
+    localStorage.removeItem(token.admin);
+}
+
+export function isAdmin() {
+    const t = localStorage.getItem(token.admin);
+    return t === "yes";
+}
+
 export function login() {
     const exp = Number(localStorage.getItem(token.exp));
 

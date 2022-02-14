@@ -42,6 +42,7 @@ import { api } from "@/config";
 import { getToken, login } from "@/utils";
 import { getPassword, getMemoKey } from "@/utils";
 import { defaultError } from "@/utils";
+import { setAdmin, notAdmin } from "@/utils";
 import { saveMemo } from "@/memo";
 
 export default {
@@ -160,6 +161,13 @@ export default {
                 .then((e) => {
                     const data = e.data;
                     passwordSetup = data.data.password;
+
+                    if (data.data.admin) {
+                        setAdmin();
+                    } else {
+                        notAdmin();
+                    }
+
                     if (data.data.skipped) {
                         Swal.fire({
                             icon: "warning",
