@@ -2,7 +2,11 @@
     <section class="section" v-for:="memo in memos">
         <div class="container">
             <h1 class="title is-4">{{ getDate(memo.edit) }}</h1>
-            <div>{{ memo.text }}</div>
+            <textarea
+                class="textarea"
+                v-model="memo.text"
+                @blur="onBlur(memo.id)"
+            ></textarea>
         </div>
     </section>
 
