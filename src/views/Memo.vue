@@ -74,7 +74,6 @@ export default {
                             let this_last_id = lastId.value;
 
                             data.data.forEach((e) => {
-                                console.log(e);
                                 memos.value.push(e);
                                 this_last_id = e.id;
                             });
@@ -191,6 +190,7 @@ export default {
             lastId,
             fetchMemo,
             getDate: (ts) => {
+                // ts == TimeStamp
                 let d = new Date(ts * 1000);
                 return d.toLocaleString();
             },
