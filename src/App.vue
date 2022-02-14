@@ -2,7 +2,54 @@
     <router-view />
 
     <footer class="footer">
-        <div class="content has-text-centered">&copy; 2022 Calico Cheese</div>
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <div class="column">&copy; Calico Cheese</div>
+                    <div class="column">
+                        <a :href="home.github.profile">Github</a>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="column">
+                        <router-link
+                            v-if="isLogin != true"
+                            :to="{ name: 'Auth' }"
+                        >
+                            로그인
+                        </router-link>
+                        <router-link v-else :to="{ name: 'Logout' }">
+                            로그아웃
+                        </router-link>
+                    </div>
+                    <div class="column">
+                        <router-link :to="{ name: 'Invite' }">
+                            봇 초대
+                        </router-link>
+                    </div>
+                    <div class="column">
+                        <router-link :to="{ name: 'Home' }">홈</router-link>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="column">
+                        <router-link :to="{ name: 'NoticeList' }">
+                            공지사항
+                        </router-link>
+                    </div>
+                    <div class="column">
+                        <router-link :to="{ name: 'ToS' }">
+                            서비스 이용약관
+                        </router-link>
+                    </div>
+                    <div class="column">
+                        <router-link :to="{ name: 'Privacy' }">
+                            개인정보 처리방침
+                        </router-link>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
 </template>
 
@@ -10,6 +57,8 @@
 import { ref, watch } from "vue";
 import { useLoading } from "vue-loading-overlay";
 import axios from "axios";
+import { home } from "@/config";
+import { isAdmin, login } from "@/utils";
 
 export default {
     setup() {
@@ -57,6 +106,12 @@ export default {
                 return Promise.reject(error);
             }
         );
+
+        return {
+            home,
+            isLogin: login(),
+            isAdmin: isAdmin(),
+        };
     },
 };
 </script>
