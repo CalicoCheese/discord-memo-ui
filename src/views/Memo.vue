@@ -1,4 +1,15 @@
 <template>
+    <section class="section">
+        <div class="container" v-if="showButton == true">
+            <button
+                class="button is-danger is-light is-fullwidth"
+                @click="reset()"
+            >
+                전체 메모 다시 불러오기
+            </button>
+        </div>
+    </section>
+
     <section class="section" v-for:="memo in memos">
         <div class="container">
             <h1 class="title is-4">{{ getDate(memo.edit) }}</h1>
@@ -11,7 +22,7 @@
     </section>
 
     <section class="section">
-        <div class="container">
+        <div class="container" v-if="showButton == true">
             <button
                 class="button is-large is-link is-fullwidth"
                 @click="fetchMemo()"
@@ -36,6 +47,7 @@ import { saveMemo } from "@/memo";
 export default {
     setup() {
         const router = useRouter();
+        const showButton = ref(false);
         const memos = ref({});
         const lastId = ref(0);
 
@@ -44,6 +56,13 @@ export default {
 
         // 메모 복호화 키 발급
         /* const memoKey = */ getMemoKey();
+
+        const reset = () => {
+            memos.value = {};
+            lastId.value = 0;
+
+            fetchMemo();
+        };
 
         const onBlur = (i) => {
             Swal.fire({
@@ -113,6 +132,9 @@ export default {
                     })
                     .catch((e) => defaultError(e));
             }
+
+            // 버튼 보여주기
+            showButton.value = true;
         };
 
         if (!login()) {
@@ -165,6 +187,8 @@ export default {
         }
 
         return {
+            showButton,
+            reset,
             memos,
             lastId,
             onBlur,
