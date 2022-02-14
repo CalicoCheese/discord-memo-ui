@@ -192,7 +192,7 @@ export default {
             getDate: (ts) => {
                 // ts == TimeStamp
                 let d = new Date(ts * 1000);
-                return d.toISOString().split("T")[0];
+                return d.toLocaleDateString();
             },
         };
     },
