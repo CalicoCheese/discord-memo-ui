@@ -1,5 +1,8 @@
 export const api = {
-    host: "http://localhost:5000",
+    host:
+        process.env.NODE_ENV === "production"
+            ? "https://memo-api.calicocheese.xyz"
+            : "http://localhost:5000",
 };
 
 export const token = {
