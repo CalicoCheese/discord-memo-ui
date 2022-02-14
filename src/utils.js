@@ -1,7 +1,7 @@
 import { createHash, pbkdf2Sync } from "crypto";
 import Swal from "sweetalert2";
-import { useRouter } from "vue-router";
 import { token } from "@/config";
+import router from "./router";
 
 export function getToken() {
     return localStorage.getItem(token.key);
@@ -161,8 +161,6 @@ print(f"생성된 iv: ${pbk.iv}")`);
 }
 
 export function defaultError(e) {
-    const router = useRouter();
-
     if (e.response == undefined) {
         Swal.fire({
             icon: "error",
