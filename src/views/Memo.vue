@@ -35,7 +35,7 @@ import { defaultError } from "@/utils";
 export default {
     setup() {
         const router = useRouter();
-        const memos = ref([]);
+        const memos = ref({});
         const lastId = ref(0);
 
         let password = getPassword();
@@ -44,6 +44,7 @@ export default {
         // 메모 복호화 키 발급
         /* const memoKey = */ getMemoKey();
 
+        };
         const fetchMemo = () => {
             if (passwordSetup == true || password == undefined) {
                 Swal.fire({
@@ -79,7 +80,7 @@ export default {
                             let this_last_id = lastId.value;
 
                             data.data.forEach((e) => {
-                                memos.value.push(e);
+                                memos.value[e.id] = e;
                                 this_last_id = e.id;
                             });
 
@@ -142,6 +143,7 @@ export default {
         return {
             memos,
             lastId,
+            onBlur,
             fetchMemo,
             getDate: (ts) => {
                 // ts == TimeStamp
