@@ -1,4 +1,3 @@
 User-agent: *
-Allow: /
-Disallow: /memo
-Disallow: /memo/*
+Disallow: /
+Allow : /$
