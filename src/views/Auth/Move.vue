@@ -9,11 +9,11 @@
 
 <script>
 import axios from "axios";
-import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import config from "@/config";
+import { api } from "@/config";
 import { login } from "@/utils";
 
+import { defaultError } from "@/utils";
 export default {
     setup() {
         const router = useRouter();
@@ -22,7 +22,7 @@ export default {
             router.push({ name: "Memo" });
         } else {
             axios({
-                url: `${config.api.host}/auth/get-url`,
+                url: `${api.host}/auth/get-url`,
             })
                 .then((e) => {
                     const data = e.data;
@@ -30,27 +30,7 @@ export default {
 
                     window.location.replace(url);
                 })
-                .catch((e) => {
-                    if (e.response == undefined) {
-                        Swal.fire({
-                            icon: "error",
-                            text: "알 수 없는 오류가 발생했습니다.",
-                            timer: 2022,
-                            timerProgressBar: true,
-                        }).then(() => {
-                            router.push({ name: "Home" });
-                        });
-                    } else {
-                        const data = e.response.data;
-                        Swal.fire({
-                            icon: "error",
-                            title: data.meta.code,
-                            text: data.meta.message,
-                        }).then(() => {
-                            router.push({ name: "Home" });
-                        });
-                    }
-                });
+                .catch((e) => defaultError(e));
         }
     },
 };

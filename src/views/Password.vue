@@ -54,9 +54,10 @@ import Swal from "sweetalert2";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import sha512 from "crypto-js/sha512";
-import config from "@/config";
-import { getToken, login, logout } from "@/utils";
+import { api } from "@/config";
+import { getToken, login } from "@/utils";
 import { getPassword, setPassword } from "@/utils";
+import { defaultError } from "@/utils";
 
 export default {
     setup() {
@@ -74,7 +75,7 @@ export default {
                 const hash = sha512(password.value).toString();
 
                 axios({
-                    url: `${config.api.host}/auth/password`,
+                    url: `${api.host}/auth/password`,
                     method: method.value,
                     headers: {
                         Authorization: `Bearer ${getToken()}`,
@@ -94,40 +95,7 @@ export default {
                             router.push({ name: "Memo" });
                         });
                     })
-                    .catch((e) => {
-                        if (e.response == undefined) {
-                            Swal.fire({
-                                icon: "error",
-                                text: "알 수 없는 오류가 발생했습니다.",
-                                timer: 2022,
-                                timerProgressBar: true,
-                            }).then(() => {
-                                router.push({ name: "Home" });
-                            });
-                        } else {
-                            const data = e.response.data;
-
-                            if (data.meta.code == 401) {
-                                logout();
-                            }
-
-                            Swal.fire({
-                                icon: "error",
-                                title: data.meta.code,
-                                text: data.meta.message,
-                                timer: 2022,
-                                timerProgressBar: true,
-                            }).then(() => {
-                                console.log(data.data.pushLock);
-                                if (
-                                    data.data.pushLock == undefined ||
-                                    data.data.pushLock == false
-                                ) {
-                                    router.push({ name: "Home" });
-                                }
-                            });
-                        }
-                    });
+                    .catch((e) => defaultError(e));
             } else {
                 Swal.fire({
                     icon: "warning",
@@ -150,7 +118,7 @@ export default {
             });
         } else {
             axios({
-                url: `${config.api.host}/auth/check`,
+                url: `${api.host}/auth/check`,
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${getToken()}`,
@@ -166,34 +134,7 @@ export default {
                         method.value = "GET";
                     }
                 })
-                .catch((e) => {
-                    if (e.response == undefined) {
-                        Swal.fire({
-                            icon: "error",
-                            text: "알 수 없는 오류가 발생했습니다.",
-                            timer: 2022,
-                            timerProgressBar: true,
-                        }).then(() => {
-                            router.push({ name: "Home" });
-                        });
-                    } else {
-                        const data = e.response.data;
-
-                        if (data.meta.code == 401) {
-                            logout();
-                        }
-
-                        Swal.fire({
-                            icon: "error",
-                            title: data.meta.code,
-                            text: data.meta.message,
-                            timer: 2022,
-                            timerProgressBar: true,
-                        }).then(() => {
-                            router.push({ name: "Home" });
-                        });
-                    }
-                });
+                .catch((e) => defaultError(e));
         }
 
         return {

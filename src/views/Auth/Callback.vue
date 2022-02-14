@@ -11,7 +11,8 @@
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
-import config from "@/config";
+import { defaultError } from "@/utils";
+import { api, token } from "@/config";
 
 export default {
     setup() {
@@ -30,14 +31,14 @@ export default {
             });
         } else {
             axios({
-                url: `${config.api.host}/auth/callback?code=${code}`,
+                url: `${api.host}/auth/callback?code=${code}`,
             })
                 .then((e) => {
                     const data = e.data;
 
                     // 토큰과 만료시간 저장
-                    localStorage.setItem(config.token.key, data.data.token);
-                    localStorage.setItem(config.token.exp, data.data.exp);
+                    localStorage.setItem(token.key, data.data.token);
+                    localStorage.setItem(token.exp, data.data.exp);
 
                     if (data.meta.code == 201) {
                         Swal.fire({
@@ -60,29 +61,7 @@ export default {
                         });
                     }
                 })
-                .catch((e) => {
-                    if (e.response == undefined) {
-                        Swal.fire({
-                            icon: "error",
-                            text: "알 수 없는 오류가 발생했습니다.",
-                            timer: 2022,
-                            timerProgressBar: true,
-                        }).then(() => {
-                            router.push({ name: "Home" });
-                        });
-                    } else {
-                        const data = e.response.data;
-                        Swal.fire({
-                            icon: "error",
-                            title: data.meta.code,
-                            text: data.meta.message,
-                            timer: 2022,
-                            timerProgressBar: true,
-                        }).then(() => {
-                            router.push({ name: "Home" });
-                        });
-                    }
-                });
+                .catch((e) => defaultError(e));
         }
     },
 };

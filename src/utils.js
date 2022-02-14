@@ -1,10 +1,10 @@
 import { createHash, pbkdf2Sync } from "crypto";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import config from "@/config";
+import { token } from "@/config";
 
 export function getToken() {
-    return localStorage.getItem(config.token.key);
+    return localStorage.getItem(token.key);
 }
 
 export function getPayload() {
@@ -23,7 +23,7 @@ export function getPayload() {
 }
 
 export function login() {
-    const exp = Number(localStorage.getItem(config.token.exp));
+    const exp = Number(localStorage.getItem(token.exp));
 
     if (
         // 만료시간이 숫자가 아닌 경우
@@ -72,7 +72,7 @@ export function logout() {
 
 export function setPassword(password_hashed) {
     if (password_hashed.length == 128) {
-        sessionStorage.setItem(config.token.password, password_hashed);
+        sessionStorage.setItem(token.password, password_hashed);
 
         return true;
     } else {
@@ -81,7 +81,7 @@ export function setPassword(password_hashed) {
 }
 
 export function getPassword() {
-    const pass = sessionStorage.getItem(config.token.password);
+    const pass = sessionStorage.getItem(token.password);
 
     if (pass == null || pass == undefined) {
         return undefined;

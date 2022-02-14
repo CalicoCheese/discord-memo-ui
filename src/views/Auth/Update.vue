@@ -61,8 +61,9 @@ import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
-import config from "@/config";
+import { api } from "@/config";
 import { getToken, login } from "@/utils";
+import { defaultError } from "@/utils";
 
 export default {
     setup() {
@@ -110,7 +111,7 @@ export default {
 
                 axios({
                     method: "POST",
-                    url: `${config.api.host}/auth/update`,
+                    url: `${api.host}/auth/update`,
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -125,35 +126,7 @@ export default {
                             router.push({ name: "Memo" });
                         });
                     })
-                    .catch((e) => {
-                        if (e.response == undefined) {
-                            fire("알 수 없는 오류가 발생했습니다.");
-
-                            Swal.fire({
-                                icon: "error",
-                                text: "알 수 없는 오류가 발생했습니다.",
-                                timer: 2022,
-                                timerProgressBar: true,
-                            }).then(() => {
-                                router.push({ name: "Home" });
-                            });
-                        } else {
-                            const data = e.response.data;
-
-                            if (data.data) {
-                                Swal.fire({
-                                    icon: "info",
-                                    text: data.meta.message,
-                                    timer: 2022,
-                                    timerProgressBar: true,
-                                }).then(() => {
-                                    router.push({ name: "Memo" });
-                                });
-                            } else {
-                                fire(data.meta.message);
-                            }
-                        }
-                    });
+                    .catch((e) => defaultError(e));
             }
         };
 

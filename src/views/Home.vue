@@ -93,7 +93,7 @@
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
 import { login } from "@/utils";
-import config from "@/config";
+import { home } from "@/config";
 
 export default {
     setup() {
@@ -117,7 +117,7 @@ export default {
 
         return {
             isLogin: login(),
-            home: config.home,
+            home,
         };
     },
 };

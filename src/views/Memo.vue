@@ -27,7 +27,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import config from "@/config";
+import { api } from "@/config";
 import { getToken, login } from "@/utils";
 import { getPassword, getMemoKey } from "@/utils";
 import { defaultError } from "@/utils";
@@ -82,7 +82,7 @@ export default {
             } else {
                 axios({
                     method: "GET",
-                    url: `${config.api.host}/memo`,
+                    url: `${api.host}/memo`,
                     params: {
                         after: lastId.value,
                     },
@@ -130,7 +130,7 @@ export default {
 
             axios({
                 method: "GET",
-                url: `${config.api.host}/auth/check`,
+                url: `${api.host}/auth/check`,
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

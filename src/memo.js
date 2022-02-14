@@ -1,12 +1,12 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { getToken, defaultError } from "@/utils";
-import config from "@/config";
+import { api } from "@/config";
 
 function editMemo(m) {
     axios({
         method: "PUT",
-        url: `${config.api.host}/memo/${m.id}`,
+        url: `${api.host}/memo/${m.id}`,
         headers: {
             Authorization: `Bearer ${getToken()}`,
         },
@@ -31,7 +31,7 @@ function editMemo(m) {
 function deleteMemo(m) {
     axios({
         method: "DELETE",
-        url: `${config.api.host}/memo/${m.id}`,
+        url: `${api.host}/memo/${m.id}`,
         headers: {
             Authorization: `Bearer ${getToken()}`,
         },

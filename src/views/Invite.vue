@@ -11,14 +11,14 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import config from "@/config";
+import { api } from "@/config";
 
 export default {
     setup() {
         const router = useRouter();
 
         axios({
-            url: `${config.api.host}/bot/get-url`,
+            url: `${api.host}/bot/get-url`,
         })
             .then((e) => {
                 const data = e.data;
