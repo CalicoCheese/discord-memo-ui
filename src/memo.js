@@ -28,7 +28,7 @@ function editMemo(m) {
         .catch((e) => defaultError(e));
 }
 
-function deleteMemo(m) {
+function deleteMemo(m, ms) {
     axios({
         method: "DELETE",
         url: `${api.host}/memo/${m.id}`,
@@ -44,13 +44,15 @@ function deleteMemo(m) {
                 timer: 2022,
                 timerProgressBar: true,
             });
+
+            delete ms.value[m.id];
         })
         .catch((e) => defaultError(e));
 }
 
-export function saveMemo(m) {
+export function saveMemo(m, ms) {
     if (m.text.trim().length == 0) {
-        deleteMemo(m);
+        deleteMemo(m, ms);
     } else {
         editMemo(m);
     }

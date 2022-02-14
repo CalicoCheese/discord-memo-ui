@@ -57,7 +57,7 @@ export default {
                 timerProgressBar: true,
             }).then((e) => {
                 if (e.isConfirmed) {
-                    saveMemo(memos.value[i]);
+                    saveMemo(memos.value[i], memos);
                 } else {
                     Swal.fire({
                         icon: "warning",
