@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -82,10 +82,6 @@ export default {
                 router.push({ name: "Home" });
             });
         }
-
-        watch(tos_agree, (q) => {
-            console.log(q);
-        });
 
         const on_next = () => {
             const fire = (message) => {
