@@ -36,10 +36,10 @@ export default {
         let password = getPassword();
         let passwordSetup = false;
 
-        const fetchMemo = () => {
-            // 메모 복호화 키 발급
-            /* const memoKey = */ getMemoKey();
+        // 메모 복호화 키 발급
+        /* const memoKey = */ getMemoKey();
 
+        const fetchMemo = () => {
             if (passwordSetup == true || password == undefined) {
                 Swal.fire({
                     icon: "warning",
