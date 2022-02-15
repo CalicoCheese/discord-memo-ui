@@ -24,12 +24,16 @@ export function getPayload() {
         return undefined;
     }
 
-    return JSON.parse(
-        Buffer.from(
-            localStorage.getItem("dmui-token").split(".")[1],
-            "base64"
-        ).toString()
-    );
+    try {
+        return JSON.parse(
+            Buffer.from(
+                localStorage.getItem("dmui-token").split(".")[1],
+                "base64"
+            ).toString()
+        );
+    } catch {
+        return undefined;
+    }
 }
 
 export function setAdmin() {
