@@ -2,18 +2,30 @@
     <section class="section">
         <div class="container">
             <h1 class="title is-1">공지사항</h1>
+            <div v-if="isAdmin == true">
+                <router-link
+                    class="button is-info is-medium"
+                    :to="{ name: 'Notice.New' }"
+                >
+                    작성하기
+                </router-link>
+            </div>
         </div>
     </section>
 
     <section class="section">
         <div class="container">
             <div class="content is-large">
-                <router-link
-                    v-for:="notice in notices"
-                    :to="{ name: 'Notice.View', params: { id: notice.id } }"
-                >
-                    {{ getDate(notice.date) }} {{ notice.title }}
-                </router-link>
+                <p v-for:="notice in notices">
+                    <router-link
+                        :to="{ name: 'Notice.View', params: { id: notice.id } }"
+                    >
+                        <span class="has-text-dark">
+                            {{ getDate(notice.date) }}
+                        </span>
+                        {{ notice.title }}
+                    </router-link>
+                </p>
             </div>
         </div>
     </section>
@@ -34,12 +46,12 @@
 import axios from "axios";
 import { ref } from "vue";
 import { api } from "@/config";
-import { defaultError } from "@/utils";
+import { defaultError, isAdmin } from "@/utils";
 
 export default {
     setup() {
         const lastId = ref(0);
-        const notices = ref({});
+        const notices = ref([]);
 
         const fetchNotice = () => {
             axios({
@@ -51,21 +63,22 @@ export default {
             })
                 .then((e) => {
                     const data = e.data;
-                    let this_lastId = lastId.value;
 
                     data.data.forEach((n) => {
-                        notices.value[n.id] = n;
-                        this_lastId = n.id;
+                        notices.value.push(n);
+                        lastId.value = n.id;
                     });
 
-                    lastId.value = this_lastId;
+                    console.log(lastId.value);
+                    console.log(notices.value);
                 })
-                .catch((e) => defaultError(e));
+                .catch((e) => {defaultError(e); console.error(e)});
         };
 
         fetchNotice();
 
         return {
+            isAdmin: isAdmin(),
             fetchNotice,
             notices,
             getDate: (ts) => {
@@ -77,3 +90,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+span {
+    margin-right: 5px;
+}
+</style>
