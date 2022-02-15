@@ -185,7 +185,7 @@ export default {
                             timer: 2022,
                             timerProgressBar: true,
                         }).then(() => {
-                            router.push({ name: "Update" });
+                            router.push({ name: "Auth.Update" });
                         });
                     } else {
                         fetchMemo();
