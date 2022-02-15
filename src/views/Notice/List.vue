@@ -68,9 +68,6 @@ export default {
                         notices.value.push(n);
                         lastId.value = n.id;
                     });
-
-                    console.log(lastId.value);
-                    console.log(notices.value);
                 })
                 .catch((e) => defaultError(e));
         };
