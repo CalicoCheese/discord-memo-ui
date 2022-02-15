@@ -63,24 +63,25 @@ const routes = [
     // Auth part
     {
         path: "/auth",
-        name: "Auth",
+        name: "Auth.Move",
         component: () =>
             import(/* webpackChunkName: "auth" */ "@/views/Auth/Move.vue"),
     },
     {
-        name: "Logout",
         path: "/auth/logout",
+        name: "Auth.Logout",
         component: () =>
             import(/* webpackChunkName: "auth" */ "@/views/Auth/Logout.vue"),
     },
     {
-        name: "Update",
         path: "/auth/update",
+        name: "Auth.Update",
         component: () =>
             import(/* webpackChunkName: "auth" */ "@/views/Auth/Update.vue"),
     },
     {
         path: "/auth/callback",
+        // name: "Auth.Callback",  // name is not required!
         component: () =>
             import(/* webpackChunkName: "auth" */ "@/views/Auth/Callback.vue"),
     },
@@ -94,7 +95,7 @@ const routes = [
     },
     {
         path: "/memo/password",
-        name: "Password",
+        name: "Memo.Password",
         component: () =>
             import(/* webpackChunkName: "memo" */ "@/views/Password.vue"),
     },

@@ -9,14 +9,14 @@
             <router-link
                 class="button is-link is-medium"
                 v-if="isLogin == false"
-                :to="{ name: 'Auth' }"
+                :to="{ name: 'Auth.Move' }"
             >
                 로그인
             </router-link>
             <router-link
                 class="button is-dark is-medium"
                 v-else-if="isLogin == true"
-                :to="{ name: 'Logout' }"
+                :to="{ name: 'Auth.Logout' }"
             >
                 로그아웃
             </router-link>

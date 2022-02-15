@@ -17,11 +17,11 @@
                     <div class="column">
                         <router-link
                             v-if="isLogin != true"
-                            :to="{ name: 'Auth' }"
+                            :to="{ name: 'Auth.Move' }"
                         >
                             로그인
                         </router-link>
-                        <router-link v-else :to="{ name: 'Logout' }">
+                        <router-link v-else :to="{ name: 'Auth.Logout' }">
                             로그아웃
                         </router-link>
                     </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="column">
                     <div class="column">
-                        <router-link :to="{ name: 'NoticeList' }">
+                        <router-link :to="{ name: 'Notice.List' }">
                             공지사항
                         </router-link>
                     </div>

@@ -97,7 +97,7 @@ export default {
                     timer: 2022,
                     timerProgressBar: true,
                 }).then(() => {
-                    router.push({ name: "Password" });
+                    router.push({ name: "Memo.Password" });
                 });
             } else {
                 axios({
