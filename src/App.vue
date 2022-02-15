@@ -12,6 +12,9 @@
                 </div>
                 <div class="column">
                     <div class="column">
+                        <router-link :to="{ name: 'Home' }">홈</router-link>
+                    </div>
+                    <div class="column">
                         <router-link
                             v-if="isLogin != true"
                             :to="{ name: 'Auth' }"
@@ -26,9 +29,6 @@
                         <router-link :to="{ name: 'Invite' }">
                             봇 초대
                         </router-link>
-                    </div>
-                    <div class="column">
-                        <router-link :to="{ name: 'Home' }">홈</router-link>
                     </div>
                 </div>
                 <div class="column">
