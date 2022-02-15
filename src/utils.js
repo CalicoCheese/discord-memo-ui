@@ -3,12 +3,22 @@ import Swal from "sweetalert2";
 import { token } from "@/config";
 import router from "./router";
 
-export function getToken() {
+export function getRawToken() {
     return localStorage.getItem(token.key);
 }
 
+export function getToken() {
+    let token = getRawToken();
+
+    if (token == null) {
+        token = "undefined";
+    }
+
+    return `Bearer ${token}`;
+}
+
 export function getPayload() {
-    const token = getToken();
+    const token = getRawToken();
 
     if (token == null || token == undefined) {
         return undefined;
@@ -67,7 +77,7 @@ export function login() {
     // 현재시간이 유효시간보다 크고 만료시간보다 작다면
     if (iat <= now < exp) {
         // 토큰을 불러오고
-        const token = getToken();
+        const token = getRawToken();
 
         // 토큰이 null이 아니라면 로그인 상태임
         // 다만 그 토큰이 유효한 토큰인지는 **모름**

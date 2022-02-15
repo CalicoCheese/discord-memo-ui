@@ -81,7 +81,7 @@ export default {
                 method: "POST",
                 url: `${api.host}/notice/${id}`,
                 headers: {
-                    Authorization: `Bearer ${getToken()}`,
+                    Authorization: getToken(),
                 },
                 data: {
                     title: title.value,

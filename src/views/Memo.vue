@@ -107,7 +107,7 @@ export default {
                         after: lastId.value,
                     },
                     headers: {
-                        Authorization: `Bearer ${getToken()}`,
+                        Authorization: getToken(),
                     },
                 })
                     .then((e) => {
@@ -149,13 +149,11 @@ export default {
                 router.push({ name: "Home" });
             });
         } else {
-            const token = getToken();
-
             axios({
                 method: "GET",
                 url: `${api.host}/auth/check`,
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: getToken(),
                 },
             })
                 .then((e) => {

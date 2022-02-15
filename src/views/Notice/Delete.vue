@@ -25,7 +25,7 @@ export default {
                 method: "DELETE",
                 url: `${api.host}/notice/${id}`,
                 headers: {
-                    Authorization: `Bearer ${getToken()}`,
+                    Authorization: getToken(),
                 },
             })
                 .then((e) => {

@@ -102,13 +102,11 @@ export default {
             } else if (!pri_read.value) {
                 fire("개인정보 처리방침을 확인해야합니다.");
             } else {
-                const token = getToken();
-
                 axios({
                     method: "POST",
                     url: `${api.host}/auth/update`,
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: getToken(),
                     },
                 })
                     .then((e) => {

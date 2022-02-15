@@ -83,7 +83,7 @@ export default {
                 method: "POST",
                 url: url,
                 headers: {
-                    Authorization: `Bearer ${getToken()}`,
+                    Authorization: getToken(),
                 },
                 data: {
                     text: text.value,

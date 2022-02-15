@@ -78,7 +78,7 @@ export default {
                     url: `${api.host}/auth/password`,
                     method: method.value,
                     headers: {
-                        Authorization: `Bearer ${getToken()}`,
+                        Authorization: getToken(),
                         "x-dm-password": hash,
                     },
                 })
@@ -121,7 +121,7 @@ export default {
                 url: `${api.host}/auth/check`,
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${getToken()}`,
+                    Authorization: getToken(),
                 },
             })
                 .then((e) => {

@@ -8,7 +8,7 @@ function editMemo(m) {
         method: "PUT",
         url: `${api.host}/memo/${m.id}`,
         headers: {
-            Authorization: `Bearer ${getToken()}`,
+            Authorization: getToken(),
         },
         data: {
             edit: m.edit,
@@ -33,7 +33,7 @@ function deleteMemo(m, ms) {
         method: "DELETE",
         url: `${api.host}/memo/${m.id}`,
         headers: {
-            Authorization: `Bearer ${getToken()}`,
+            Authorization: getToken(),
         },
     })
         .then((e) => {
