@@ -75,7 +75,7 @@ export default {
             let url = `${api.host}/tos/${id.value}`;
             if (mode == "new") {
                 url = `${api.host}/tos`;
-            } else if (id.value == 0){
+            } else if (id.value == 0) {
                 url = `${api.host}/tos`;
             }
 
