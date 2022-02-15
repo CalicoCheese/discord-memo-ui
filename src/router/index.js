@@ -37,6 +37,15 @@ const routes = [
         props: true,
     },
     {
+        path: "/notice/:id/delete",
+        name: "Notice.Delete",
+        component: () =>
+            import(
+                /* webpackChunkName: "notice" */ "@/views/Notice/Delete.vue"
+            ),
+        props: true,
+    },
+    {
         path: "/notice/new",
         name: "Notice.New",
         component: () =>
