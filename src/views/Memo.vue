@@ -1,6 +1,6 @@
 <template>
     <section class="section">
-        <div class="container" v-if="showButton == true">
+        <div class="container" v-if="showButton == true && showResetButton()">
             <button
                 class="button is-danger is-light is-fullwidth"
                 @click="reset()"
@@ -196,6 +196,9 @@ export default {
 
         return {
             showButton,
+            showResetButton: () => {
+                return Object.keys(memos.value).length > 0;
+            },
             reset,
             memos,
             lastId,
