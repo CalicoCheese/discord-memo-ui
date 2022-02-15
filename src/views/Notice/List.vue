@@ -72,7 +72,7 @@ export default {
                     console.log(lastId.value);
                     console.log(notices.value);
                 })
-                .catch((e) => {defaultError(e); console.error(e)});
+                .catch((e) => defaultError(e));
         };
 
         fetchNotice();
