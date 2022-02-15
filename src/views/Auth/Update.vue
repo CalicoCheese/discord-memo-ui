@@ -15,7 +15,7 @@
                         <input type="checkbox" v-model="tos_agree" />
                         나는
                         <router-link
-                            :to="{ name: 'ToS' }"
+                            :to="{ name: 'ToS.View' }"
                             target="_blank"
                             @click="tos_read = true"
                         >

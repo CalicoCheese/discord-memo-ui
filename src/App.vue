@@ -38,7 +38,7 @@
                         </router-link>
                     </div>
                     <div class="column">
-                        <router-link :to="{ name: 'ToS' }">
+                        <router-link :to="{ name: 'ToS.View' }">
                             서비스 이용약관
                         </router-link>
                     </div>

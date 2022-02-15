@@ -56,16 +56,29 @@ const routes = [
     // ToS and Privacy part
     {
         path: "/tos",
-        name: "ToS",
+        name: "ToS.View",
         component: () =>
-            import(/* webpackChunkName: "tos" */ "@/views/Tos.vue"),
-        props: true,
+            import(/* webpackChunkName: "tos" */ "@/views/ToS/View.vue"),
     },
+    {
+        path: "/tos/add",
+        name: "ToS.Add",
+        component: () =>
+            import(/* webpackChunkName: "tos" */ "@/views/ToS/Add.vue"),
+    },
+    {
+        path: "/tos/:id/delete",
+        name: "ToS.Delete",
+        component: () =>
+            import(/* webpackChunkName: "tos" */ "@/views/ToS/Delete.vue"),
+    },
+
+    // Privacy part
     {
         path: "/privacy",
         name: "Privacy",
         component: () =>
-            import(/* webpackChunkName: "tos" */ "@/views/Privacy.vue"),
+            import(/* webpackChunkName: "privacy" */ "@/views/Privacy.vue"),
         props: true,
     },
 
