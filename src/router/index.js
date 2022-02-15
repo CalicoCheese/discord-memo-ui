@@ -18,15 +18,29 @@ const routes = [
     // Notice part
     {
         path: "/notice",
-        name: "NoticeList",
+        name: "Notice.List",
         component: () =>
-            import(/* webpackChunkName: "notice" */ "@/views/Notice.vue"),
+            import(/* webpackChunkName: "notice" */ "@/views/Notice/List.vue"),
     },
     {
         path: "/notice/:id",
-        name: "Notice",
+        name: "Notice.View",
         component: () =>
-            import(/* webpackChunkName: "notice" */ "@/views/Notice.vue"),
+            import(/* webpackChunkName: "notice" */ "@/views/Notice/View.vue"),
+        props: true,
+    },
+    {
+        path: "/notice/:id/edit",
+        name: "Notice.Edit",
+        component: () =>
+            import(/* webpackChunkName: "notice" */ "@/views/Notice/Edit.vue"),
+        props: true,
+    },
+    {
+        path: "/notice/new",
+        name: "Notice.New",
+        component: () =>
+            import(/* webpackChunkName: "notice" */ "@/views/Notice/New.vue"),
         props: true,
     },
 
