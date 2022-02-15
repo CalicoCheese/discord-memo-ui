@@ -1,0 +1,63 @@
+<template>
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-1">서비스 이용약관</h1>
+            <div class="content is-large">
+                <p>{{ getDate(date) }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="content is-large" v-html="text"></div>
+        </div>
+    </section>
+</template>
+
+<script>
+import axios from "axios";
+import { ref } from "vue";
+import { parse } from "marked";
+import { api } from "@/config";
+import { defaultError } from "@/utils";
+
+export default {
+    setup() {
+        const before = ref(Date.now() / 1000);
+        const date = ref(0);
+        const text = ref("");
+
+        const getDate = (ts) => {
+            // ts == TimeStamp
+            let d = new Date(ts * 1000);
+            return d.toLocaleDateString();
+        };
+
+        const fetchToS = () => {
+            axios({
+                method: "GET",
+                url: `${api.host}/tos`,
+                headers: {
+                    "x-tos-before": before.value,
+                },
+            })
+                .then((e) => {
+                    const data = e.data;
+                    before.value = data.data.date;
+                    date.value = data.data.date;
+                    text.value = parse(data.data.text);
+                })
+                .catch((e) => defaultError(e));
+        };
+
+        fetchToS();
+
+        return {
+            date,
+            getDate,
+            text,
+        };
+    },
+};
+</script>
