@@ -103,13 +103,13 @@ const routes = [
         path: "/memo",
         name: "Memo",
         component: () =>
-            import(/* webpackChunkName: "memo" */ "@/views/Memo.vue"),
+            import(/* webpackChunkName: "memo" */ "@/views/Memo/Memo.vue"),
     },
     {
         path: "/memo/password",
         name: "Memo.Password",
         component: () =>
-            import(/* webpackChunkName: "memo" */ "@/views/Password.vue"),
+            import(/* webpackChunkName: "memo" */ "@/views/Memo/Password.vue"),
     },
 
     // 404
