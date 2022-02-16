@@ -38,12 +38,26 @@
 
     <section class="section">
         <div class="container">
-            <button
-                class="button is-link is-large is-fullwidth"
-                @click="fetchNotice()"
-            >
-                더 불러오기
-            </button>
+            <nav class="pagination is-centered">
+                <ul class="pagination-list">
+                    <li v-for:="p in pages">
+                        <button
+                            v-if="p == page"
+                            class="pagination-link is-current"
+                            @click="setPage(p)"
+                        >
+                            {{ p }}
+                        </button>
+                        <button
+                            v-else
+                            class="pagination-link"
+                            @click="setPage(p)"
+                        >
+                            {{ p }}
+                        </button>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </section>
 </template>
@@ -57,24 +71,59 @@ import { isAdmin } from "@/utils";
 
 export default {
     setup() {
-        const lastId = ref(0);
         const notices = ref([]);
+        const page = ref(0);
+        const max_page = ref(0);
+        const pages = ref([]);
+
+        const updatePages = () => {
+            pages.value = [];
+
+            if (page.value != 1) {
+                let min = page.value - 5;
+                while (min <= 0) {
+                    min += 1;
+                }
+
+                for (let i = min; i < page.value; i++) {
+                    pages.value.push(i);
+                }
+            }
+
+            let max = max_page.value - 5;
+            while (max - page.value <= 5) {
+                max += 1;
+            }
+            while (max - page.value > 5) {
+                max -= 1;
+            }
+
+            if (max > max_page.value) {
+                max -= max - max_page.value;
+            }
+
+            for (let i = page.value; i <= max; i++) {
+                pages.value.push(i);
+            }
+        };
 
         const fetchNotice = () => {
             axios({
                 method: "GET",
                 url: `${api.host}/notice`,
                 params: {
-                    after: lastId.value,
+                    page: page.value,
                 },
             })
                 .then((e) => {
                     const data = e.data;
 
-                    data.data.notice.forEach((n) => {
-                        notices.value.push(n);
-                        lastId.value = n.id;
-                    });
+                    Object.assign(notices.value, data.data.notice);
+
+                    page.value = data.data.page.this;
+                    max_page.value = data.data.page.max;
+
+                    updatePages();
                 })
                 .catch((e) => defaultError(e));
         };
@@ -83,9 +132,14 @@ export default {
 
         return {
             isAdmin: isAdmin(),
-            fetchNotice,
             notices,
             getDate,
+            page,
+            pages,
+            setPage: (p) => {
+                page.value = p;
+                fetchNotice();
+            },
         };
     },
 };
