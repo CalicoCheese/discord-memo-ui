@@ -53,7 +53,7 @@ const routes = [
         props: true,
     },
 
-    // ToS and Privacy part
+    // ToS part
     {
         path: "/tos",
         name: "ToS.View",
