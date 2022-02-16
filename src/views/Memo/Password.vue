@@ -53,7 +53,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import sha512 from "crypto-js/sha512";
+import { createHash } from "crypto";
 import { api } from "@/config";
 import { getToken, login } from "@/utils";
 import { getPassword, setPassword } from "@/utils";
@@ -61,6 +61,8 @@ import { defaultError } from "@/utils";
 
 export default {
     setup() {
+        const sha512 = createHash("sha512");
+
         const router = useRouter();
         const method = ref("GET");
         const password = ref("");
@@ -72,7 +74,7 @@ export default {
 
         const onConfirm = () => {
             if (password.value.length >= 6) {
-                const hash = sha512(password.value).toString();
+                const hash = sha512.update(password.value).digest("hex");
 
                 axios({
                     url: `${api.host}/auth/password`,
