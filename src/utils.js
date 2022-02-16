@@ -202,3 +202,9 @@ export function defaultError(e) {
         });
     }
 }
+
+export function getDate(ts) {
+    // ts == TimeStamp
+    let d = new Date(ts * 1000);
+    return d.toLocaleDateString();
+}

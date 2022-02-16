@@ -46,7 +46,8 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { Renderer, parse } from "marked";
 import { api } from "@/config";
-import { defaultError, isAdmin } from "@/utils";
+import { defaultError, getDate } from "@/utils";
+import { isAdmin } from "@/utils";
 
 export default {
     setup() {
@@ -65,12 +66,6 @@ export default {
                 target = "_self";
             }
             return `<a target="${target}" rel="noreferrer" href="${href}">${text}</a>`;
-        };
-
-        const getDate = (ts) => {
-            // ts == TimeStamp
-            let d = new Date(ts * 1000);
-            return d.toLocaleDateString();
         };
 
         const fetchNotice = () => {

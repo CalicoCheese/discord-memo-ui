@@ -20,18 +20,12 @@ import axios from "axios";
 import { ref } from "vue";
 import { parse } from "marked";
 import { api } from "@/config";
-import { defaultError } from "@/utils";
+import { defaultError, getDate } from "@/utils";
 
 export default {
     setup() {
         const date = ref(0);
         const text = ref("");
-
-        const getDate = (ts) => {
-            // ts == TimeStamp
-            let d = new Date(ts * 1000);
-            return d.toLocaleDateString();
-        };
 
         const fetchToS = () => {
             axios({

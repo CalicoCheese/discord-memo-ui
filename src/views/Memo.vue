@@ -41,7 +41,7 @@ import { useRouter } from "vue-router";
 import { api } from "@/config";
 import { getToken, login } from "@/utils";
 import { getPassword, getMemoKey } from "@/utils";
-import { defaultError } from "@/utils";
+import { defaultError, getDate } from "@/utils";
 import { setAdmin, notAdmin } from "@/utils";
 import { saveMemo } from "@/memo";
 
@@ -202,11 +202,7 @@ export default {
             lastId,
             onBlur,
             fetchMemo,
-            getDate: (ts) => {
-                // ts == TimeStamp
-                let d = new Date(ts * 1000);
-                return d.toLocaleDateString();
-            },
+            getDate,
         };
     },
 };

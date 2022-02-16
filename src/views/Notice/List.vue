@@ -52,7 +52,8 @@
 import axios from "axios";
 import { ref } from "vue";
 import { api } from "@/config";
-import { defaultError, isAdmin } from "@/utils";
+import { defaultError, getDate } from "@/utils";
+import { isAdmin } from "@/utils";
 
 export default {
     setup() {
@@ -84,11 +85,7 @@ export default {
             isAdmin: isAdmin(),
             fetchNotice,
             notices,
-            getDate: (ts) => {
-                // ts == TimeStamp
-                let d = new Date(ts * 1000);
-                return d.toLocaleDateString();
-            },
+            getDate,
         };
     },
 };
