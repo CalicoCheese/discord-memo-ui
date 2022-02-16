@@ -21,3 +21,14 @@ export const home = {
         bot: "https://github.com/CalicoCheese/discord-memo-bot",
     },
 };
+
+export const notice = [
+    {
+        text: "개인정보 처리방침",
+        code: 1,
+    },
+    {
+        text: "서비스 이용약관",
+        code: 2,
+    },
+];

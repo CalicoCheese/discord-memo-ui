@@ -60,18 +60,6 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "tos" */ "@/views/ToS/View.vue"),
     },
-    {
-        path: "/tos/add",
-        name: "ToS.Add",
-        component: () =>
-            import(/* webpackChunkName: "tos" */ "@/views/ToS/Add.vue"),
-    },
-    {
-        path: "/tos/:id/delete",
-        name: "ToS.Delete",
-        component: () =>
-            import(/* webpackChunkName: "tos" */ "@/views/ToS/Delete.vue"),
-    },
 
     // Privacy part
     {

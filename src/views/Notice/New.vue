@@ -8,6 +8,20 @@
     <section class="section">
         <div class="container">
             <div class="field">
+                <label class="label is-medium">형식</label>
+                <div class="control">
+                    <div class="select">
+                        <select v-model="type">
+                            <option value="0">공지사항</option>
+                            <option v-for:="n in notice" :value="n.code">
+                                {{ n.text }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
                 <label class="label is-medium">제목</label>
                 <div class="control">
                     <input
@@ -46,18 +60,27 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { api } from "@/config";
+import { api, notice } from "@/config";
 import { getToken, defaultError } from "@/utils";
 
 export default {
     setup() {
         const router = useRouter();
+        const type = ref(0);
         const title = ref("");
         const text = ref("");
+
+        watch(type, () => {
+            if (type.value == 0) {
+                title.value = "공지사항";
+            } else {
+                title.value = notice[type.value - 1].text;
+            }
+        });
 
         const btnHandle = () => {
             axios({
@@ -67,6 +90,7 @@ export default {
                     Authorization: getToken(),
                 },
                 data: {
+                    type: type.value,
                     title: title.value,
                     text: text.value,
                 },
@@ -91,6 +115,8 @@ export default {
         };
 
         return {
+            notice,
+            type,
             title,
             text,
             btnHandle,

@@ -23,7 +23,13 @@
                         <span class="has-text-dark">
                             {{ getDate(notice.date) }}
                         </span>
-                        {{ notice.title }}
+
+                        <span v-if="notice.type == 0">
+                            {{ notice.title }}
+                        </span>
+                        <b v-else>
+                            {{ notice.title }}
+                        </b>
                     </router-link>
                 </p>
             </div>
@@ -64,7 +70,7 @@ export default {
                 .then((e) => {
                     const data = e.data;
 
-                    data.data.forEach((n) => {
+                    data.data.notice.forEach((n) => {
                         notices.value.push(n);
                         lastId.value = n.id;
                     });

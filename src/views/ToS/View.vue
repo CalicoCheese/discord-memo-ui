@@ -24,7 +24,6 @@ import { defaultError } from "@/utils";
 
 export default {
     setup() {
-        const before = ref(Date.now() / 1000);
         const date = ref(0);
         const text = ref("");
 
@@ -38,13 +37,9 @@ export default {
             axios({
                 method: "GET",
                 url: `${api.host}/tos`,
-                headers: {
-                    "x-tos-before": before.value,
-                },
             })
                 .then((e) => {
                     const data = e.data;
-                    before.value = data.data.date;
                     date.value = data.data.date;
                     text.value = parse(data.data.text);
                 })
