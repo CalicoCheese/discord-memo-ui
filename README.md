@@ -1,6 +1,14 @@
-# discord-memo-ui
+# discord-memo-api
+Send a message to the bot to write a new memo!
 
-## Project setup
+## Project repository
+- [API](https://github.com/CalicoCheese/discord-memo-api)
+- [UI](https://github.com/CalicoCheese/discord-memo-ui)
+- [BOT](https://github.com/CalicoCheese/discord-memo-bot)
+
+## Project Command
+
+### Project setup
 ```
 yarn install
 ```
@@ -15,10 +23,12 @@ yarn serve
 yarn build
 ```
 
+### Compiles and minifies for production and deploy to firebase hosting
+```
+yarn deploy
+```
+
 ### Lints and fixes files
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
