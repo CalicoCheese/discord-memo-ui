@@ -43,7 +43,7 @@
                         </router-link>
                     </div>
                     <div class="column">
-                        <router-link :to="{ name: 'Privacy' }">
+                        <router-link :to="{ name: 'Privacy.View' }">
                             개인정보 처리방침
                         </router-link>
                     </div>

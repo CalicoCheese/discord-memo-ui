@@ -76,9 +76,11 @@ const routes = [
     // Privacy part
     {
         path: "/privacy",
-        name: "Privacy",
+        name: "Privacy.View",
         component: () =>
-            import(/* webpackChunkName: "privacy" */ "@/views/Privacy.vue"),
+            import(
+                /* webpackChunkName: "privacy" */ "@/views/Privacy/View.vue"
+            ),
         props: true,
     },
 
