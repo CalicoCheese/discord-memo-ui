@@ -6,7 +6,7 @@
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build --report",
         "lint": "vue-cli-service lint",
-        "deploy": "vue-cli-service build && firebase deploy"
+        "deploy": "firebase deploy"
     },
     "dependencies": {
         "axios": "^0.25.0",
