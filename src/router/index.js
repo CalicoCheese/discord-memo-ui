@@ -112,6 +112,16 @@ const routes = [
             import(/* webpackChunkName: "memo" */ "@/views/Memo/Password.vue"),
     },
 
+    // Dashboard part
+    {
+        path: "/dashboard",
+        name: "Dashboard.View",
+        component: () =>
+            import(
+                /* webpackChunkName: "dashboard" */ "@/views/Dashboard/View.vue"
+            ),
+    },
+
     // 404
     {
         path: "/:catchAll(.*)*",
