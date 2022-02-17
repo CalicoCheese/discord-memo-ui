@@ -40,7 +40,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { api } from "@/config";
 import { getToken, login } from "@/utils";
-import { getPassword, getMemoKey } from "@/utils";
+import { getPassword } from "@/utils";
 import { defaultError, getDate } from "@/utils";
 import { setAdmin, notAdmin } from "@/utils";
 import { saveMemo } from "@/memo";
@@ -56,7 +56,7 @@ export default {
         let passwordSetup = false;
 
         // 메모 복호화 키 발급
-        /* const memoKey = */ getMemoKey();
+        // const memoKey = ?
 
         const reset = () => {
             memos.value = {};
