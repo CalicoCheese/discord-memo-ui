@@ -31,7 +31,10 @@ export default {
             });
         } else {
             axios({
-                url: `${api.host}/auth/callback?code=${code}`,
+                url: `${api.host}/auth/callback`,
+                params: {
+                    code: code,
+                },
             })
                 .then((e) => {
                     const data = e.data;
