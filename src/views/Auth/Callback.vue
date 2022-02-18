@@ -41,15 +41,7 @@ export default {
                     localStorage.setItem(token.exp, data.data.exp);
 
                     if (data.meta.code == 201) {
-                        Swal.fire({
-                            icon: "success",
-                            title: data.meta.code,
-                            text: data.meta.message,
-                            timer: 2022,
-                            timerProgressBar: true,
-                        }).then(() => {
-                            router.push({ name: "Memo" });
-                        });
+                        router.push({ name: "Memo" });
                     } else {
                         Swal.fire({
                             icon: "info",
