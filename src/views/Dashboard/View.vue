@@ -10,6 +10,24 @@
                     </b>
                     유저로 로그인되어 있습니다.
                 </p>
+                <router-link
+                    class="button is-link is-large is-fullwidth"
+                    :to="{ name: 'Auth.Logout' }"
+                >
+                    로그아웃
+                </router-link>
+            </div>
+            <div class="content is-large" v-else>
+                <p>
+                    계정 정보를 확인하고 수정하려면
+                    <span class="has-text-link">로그인</span>해야 합니다.
+                </p>
+                <router-link
+                    class="button is-link is-large is-fullwidth"
+                    :to="{ name: 'Auth.Move' }"
+                >
+                    로그인
+                </router-link>
             </div>
         </div>
     </section>
@@ -62,7 +80,6 @@
 
 <script>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import axios from "axios";
 import { api } from "@/config";
 import { getToken, getPayload, getDate } from "@/utils";
@@ -70,12 +87,9 @@ import { defaultError } from "@/utils";
 
 export default {
     setup() {
-        const router = useRouter();
         const payload = getPayload();
 
         if (payload == undefined) {
-            router.push({ name: "Home" });
-
             return {
                 display: false,
             };
