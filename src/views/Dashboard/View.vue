@@ -2,7 +2,7 @@
     <section class="section">
         <div class="container">
             <h1 class="title is-1">계정 관리 메뉴</h1>
-            <div class="content is-large">
+            <div class="content is-large" v-if="display == true">
                 <p>
                     현재
                     <b class="has-text-link">
@@ -14,7 +14,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section" v-if="display == true">
         <div class="container">
             <h2 class="title is-2">계정 정보</h2>
             <div class="content is-large">
@@ -50,7 +50,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section" v-if="display == true">
         <div class="container">
             <h2 class="title is-2">기타</h2>
 
@@ -62,6 +62,7 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import { api } from "@/config";
 import { getToken, getPayload, getDate } from "@/utils";
@@ -69,7 +70,17 @@ import { defaultError } from "@/utils";
 
 export default {
     setup() {
+        const router = useRouter();
         const payload = getPayload();
+
+        if (payload == undefined) {
+            router.push({ name: "Home" });
+
+            return {
+                display: false,
+            };
+        }
+
         const creation_date = ref(0);
         const tos_agree_date = ref(0);
         const memo_count = ref(0);
@@ -91,6 +102,7 @@ export default {
             .catch((e) => defaultError(e));
 
         return {
+            display: true,
             userInfo: payload.user,
             getDate,
             creation_date,
