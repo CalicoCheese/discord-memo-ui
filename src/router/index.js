@@ -123,7 +123,14 @@ const routes = [
                 /* webpackChunkName: "dashboard" */ "@/views/Dashboard/Clear.vue"
             ),
     },
-
+    {
+        path: "/dashboard/delete/@me",
+        name: "Dashboard.Delete.@me",
+        component: () =>
+            import(
+                /* webpackChunkName: "dashboard" */ "@/views/Dashboard/Delete.vue"
+            ),
+    },
 
     // 404
     {

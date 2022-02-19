@@ -78,7 +78,12 @@
             >
                 모든 메모 삭제
             </router-link>
-            <button class="button is-dark is-medium">계정 삭제</button>
+            <router-link
+                class="button is-dark is-medium"
+                :to="{ name: 'Dashboard.Delete.@me' }"
+            >
+                계정 삭제
+            </router-link>
         </div>
     </section>
 </template>
