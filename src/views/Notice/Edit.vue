@@ -39,7 +39,10 @@
             <div class="field">
                 <label class="label is-medium">본문</label>
                 <div class="control">
-                    <textarea class="textarea" v-model="text"></textarea>
+                    <textarea
+                        class="textarea has-fixed-size"
+                        v-model="text"
+                    ></textarea>
                 </div>
             </div>
         </div>
@@ -142,3 +145,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.textarea {
+    height: 1200px;
+}
+</style>
