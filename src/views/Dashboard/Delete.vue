@@ -24,7 +24,6 @@ export default {
             router.push({ name: "Memo" });
         } else {
             const payload = getPayload();
-            console.log(payload);
 
             Swal.fire({
                 icon: "question",
