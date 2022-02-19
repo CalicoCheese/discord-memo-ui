@@ -101,8 +101,10 @@ export function defaultError(e) {
         Swal.fire({
             icon: "error",
             text: "알 수 없는 오류가 발생했습니다.",
-            timer: 2022,
+            timer: 2022 * 4,
             timerProgressBar: true,
+        }).then(() => {
+            router.push({ name: "Home" });
         });
     } else {
         const data = e.response.data;
