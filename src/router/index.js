@@ -115,6 +115,15 @@ const routes = [
                 /* webpackChunkName: "dashboard" */ "@/views/Dashboard/View.vue"
             ),
     },
+    {
+        path: "/dashboard/clear-memo",
+        name: "Dashboard.Clear",
+        component: () =>
+            import(
+                /* webpackChunkName: "dashboard" */ "@/views/Dashboard/Clear.vue"
+            ),
+    },
+
 
     // 404
     {

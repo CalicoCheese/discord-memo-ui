@@ -72,7 +72,12 @@
         <div class="container">
             <h2 class="title is-2">기타</h2>
 
-            <button class="button is-warning is-medium">모든 메모 삭제</button>
+            <router-link
+                class="button is-warning is-medium"
+                :to="{ name: 'Dashboard.Clear' }"
+            >
+                모든 메모 삭제
+            </router-link>
             <button class="button is-dark is-medium">계정 삭제</button>
         </div>
     </section>
