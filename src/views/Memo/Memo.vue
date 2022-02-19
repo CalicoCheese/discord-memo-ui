@@ -1,15 +1,4 @@
 <template>
-    <section class="section">
-        <div class="container" v-if="showButton == true && showResetButton()">
-            <button
-                class="button is-danger is-light is-fullwidth"
-                @click="reset()"
-            >
-                전체 메모 다시 불러오기
-            </button>
-        </div>
-    </section>
-
     <section class="section" v-for:="memo in memos">
         <div class="container">
             <h1 class="title is-4">{{ getDate(memo.edit) }}</h1>
@@ -28,6 +17,13 @@
                 @click="fetchMemo()"
             >
                 더 불러오기
+            </button>
+
+            <button
+                class="button is-danger is-light is-fullwidth dmui-reset"
+                @click="reset()"
+            >
+                전체 메모 다시 불러오기
             </button>
         </div>
     </section>
@@ -175,9 +171,6 @@ export default {
 
         return {
             showButton,
-            showResetButton: () => {
-                return Object.keys(memos.value).length > 0;
-            },
             reset,
             memos,
             lastId,
@@ -188,3 +181,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.dmui-reset {
+    margin-top: 10px;
+}
+</style>
