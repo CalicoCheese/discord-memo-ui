@@ -2,11 +2,27 @@
     <section class="section" v-for:="memo in memos">
         <div class="container">
             <h1 class="title is-4">{{ getDate(memo.edit) }}</h1>
+
+            <div class="content is-large" v-if="memo.display != true">
+                <blockquote @click="decryptMemo(memo.id)">
+                    이 메모는 <b>암호화</b>된 메모입니다.<br />
+                    메모를 확인하려면 <b>비밀번호</b>를 입력해야합니다.
+                </blockquote>
+            </div>
             <textarea
+                v-else
                 class="textarea"
                 v-model="memo.text"
                 @blur="onBlur(memo.id)"
             ></textarea>
+
+            <button
+                v-if="memo.encrypted == false && memo.display == true"
+                class="button is-info is-light is-fullwidth dmui-m-t"
+                @click="encryptMemo(memo.id)"
+            >
+                메모 암호화 하기
+            </button>
         </div>
     </section>
 
@@ -20,7 +36,7 @@
             </button>
 
             <button
-                class="button is-danger is-light is-fullwidth dmui-reset"
+                class="button is-danger is-light is-fullwidth dmui-m-t"
                 @click="reset()"
             >
                 전체 메모 다시 불러오기
@@ -46,12 +62,64 @@ export default {
         const showButton = ref(false);
         const memos = ref({});
         const lastId = ref(0);
+        const passwords = ref({});
+
+        // IF문용 상수
+        const DECRYPT = -5; // 아무의미 없음
+        const ENCRYPT = 21; // 아무의미 없음
 
         const reset = () => {
             memos.value = {};
             lastId.value = 0;
+            passwords.value = {};
 
             fetchMemo();
+        };
+
+        const decryptMemo = (i) => {
+            const p = passwords.value[i];
+
+            if (p == undefined) {
+                needPassword(i, ENCRYPT);
+            } else {
+                alert("암호화 기능은 아직 구현되지 않았습니다.");
+            }
+        };
+
+        const encryptMemo = (i) => {
+            const p = passwords.value[i];
+
+            if (p == undefined) {
+                needPassword(i, ENCRYPT);
+            } else {
+                alert("암호화 기능은 아직 구현되지 않았습니다.");
+            }
+        };
+
+        const needPassword = (i, cb) => {
+            Swal.fire({
+                icon: "question",
+                text: "비밀번호를 입력해주세요.",
+                input: "password",
+                inputAutoTrim: true,
+            }).then((e) => {
+                if (e.value == null || e.value.length == 0) {
+                    Swal.fire({
+                        icon: "error",
+                        text: "비밀번호를 입력해주세요!",
+                        timer: 2022,
+                        timerProgressBar: true,
+                    });
+                } else {
+                    passwords.value[i] = e.value;
+
+                    if (cb == DECRYPT) {
+                        decryptMemo(i);
+                    } else if (cb == ENCRYPT) {
+                        encryptMemo(i);
+                    }
+                }
+            });
         };
 
         const onBlur = (i) => {
@@ -103,6 +171,7 @@ export default {
                         let this_last_id = lastId.value;
 
                         data.data.forEach((e) => {
+                            e.display = !e.encrypted;
                             memos.value[e.id] = e;
                             this_last_id = e.id;
                         });
@@ -170,6 +239,8 @@ export default {
         }
 
         return {
+            decryptMemo,
+            encryptMemo,
             showButton,
             reset,
             memos,
@@ -183,7 +254,7 @@ export default {
 </script>
 
 <style scoped>
-.dmui-reset {
+.dmui-m-t {
     margin-top: 10px;
 }
 </style>
