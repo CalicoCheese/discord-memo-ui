@@ -40,7 +40,6 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { api } from "@/config";
 import { getToken, login } from "@/utils";
-import { getPassword } from "@/utils";
 import { defaultError, getDate } from "@/utils";
 import { setAdmin, notAdmin } from "@/utils";
 import { saveMemo } from "@/memo";
@@ -51,12 +50,6 @@ export default {
         const showButton = ref(false);
         const memos = ref({});
         const lastId = ref(0);
-
-        let password = getPassword();
-        let passwordSetup = false;
-
-        // 메모 복호화 키 발급
-        // const memoKey = ?
 
         const reset = () => {
             memos.value = {};
@@ -90,49 +83,38 @@ export default {
         };
 
         const fetchMemo = () => {
-            if (passwordSetup == true || password == undefined) {
-                Swal.fire({
-                    icon: "warning",
-                    text: "메모 비밀번호가 입력되지 않았습니다!",
-                    timer: 2022,
-                    timerProgressBar: true,
-                }).then(() => {
-                    router.push({ name: "Password.Input" });
-                });
-            } else {
-                axios({
-                    method: "GET",
-                    url: `${api.host}/memo`,
-                    params: {
-                        after: lastId.value,
-                    },
-                    headers: {
-                        Authorization: getToken(),
-                    },
+            axios({
+                method: "GET",
+                url: `${api.host}/memo`,
+                params: {
+                    after: lastId.value,
+                },
+                headers: {
+                    Authorization: getToken(),
+                },
+            })
+                .then((e) => {
+                    const data = e.data;
+
+                    if (lastId.value == 0 && data.data.length == 0) {
+                        Swal.fire({
+                            icon: "info",
+                            text: "저장된 메모가 없습니다!",
+                            timer: 2022,
+                            timerProgressBar: true,
+                        });
+                    } else {
+                        let this_last_id = lastId.value;
+
+                        data.data.forEach((e) => {
+                            memos.value[e.id] = e;
+                            this_last_id = e.id;
+                        });
+
+                        lastId.value = this_last_id;
+                    }
                 })
-                    .then((e) => {
-                        const data = e.data;
-
-                        if (lastId.value == 0 && data.data.length == 0) {
-                            Swal.fire({
-                                icon: "info",
-                                text: "저장된 메모가 없습니다!",
-                                timer: 2022,
-                                timerProgressBar: true,
-                            });
-                        } else {
-                            let this_last_id = lastId.value;
-
-                            data.data.forEach((e) => {
-                                memos.value[e.id] = e;
-                                this_last_id = e.id;
-                            });
-
-                            lastId.value = this_last_id;
-                        }
-                    })
-                    .catch((e) => defaultError(e));
-            }
+                .catch((e) => defaultError(e));
 
             // 버튼 보여주기
             showButton.value = true;
@@ -158,7 +140,6 @@ export default {
             })
                 .then((e) => {
                     const data = e.data;
-                    passwordSetup = data.data.password;
 
                     if (data.data.admin) {
                         setAdmin();

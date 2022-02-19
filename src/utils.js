@@ -96,28 +96,6 @@ export function logout() {
     sessionStorage.clear();
 }
 
-export function setPassword(password_hashed) {
-    if (password_hashed.length == 128) {
-        sessionStorage.setItem(token.password, password_hashed);
-
-        return true;
-    } else {
-        return false;
-    }
-}
-
-export function getPassword() {
-    const pass = sessionStorage.getItem(token.password);
-
-    if (pass == null || pass == undefined) {
-        return undefined;
-    } else if (pass.length == 128) {
-        return pass;
-    } else {
-        return undefined;
-    }
-}
-
 export function defaultError(e) {
     if (e.response == undefined) {
         Swal.fire({

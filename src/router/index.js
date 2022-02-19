@@ -98,14 +98,6 @@ const routes = [
             import(/* webpackChunkName: "auth" */ "@/views/Auth/Callback.vue"),
     },
 
-    // Password part
-    {
-        path: "/password/input",
-        name: "Password.Input",
-        component: () =>
-            import(/* webpackChunkName: "pw" */ "@/views/Password/Input.vue"),
-    },
-
     // Memo part
     {
         path: "/memo",
