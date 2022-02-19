@@ -10,7 +10,7 @@
 
     <section class="section">
         <div class="container">
-            <div class="content is-large" v-html="text"></div>
+            <div class="content is-medium" v-html="text"></div>
         </div>
     </section>
 </template>
