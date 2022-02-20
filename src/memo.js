@@ -57,3 +57,29 @@ export function saveMemo(m, ms) {
         editMemo(m);
     }
 }
+
+export function createMemo() {
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            input: "textarea",
+        }).then((e) => {
+            axios({
+                method: "POST",
+                url: `${api.host}/memo`,
+                headers: {
+                    Authorization: getToken(),
+                },
+                data: {
+                    text: e.value,
+                    encrypted: false,
+                },
+            })
+                .then((e) => {
+                    resolve(e);
+                })
+                .catch((e) => {
+                    reject(e);
+                });
+        });
+    });
+}

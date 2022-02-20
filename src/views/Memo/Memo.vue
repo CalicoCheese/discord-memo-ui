@@ -1,4 +1,27 @@
 <template>
+    <section class="section">
+        <div class="container" v-if="showButton == true">
+            <div class="columns">
+                <div class="column">
+                    <button
+                        class="button is-success is-light is-fullwidth"
+                        @click="createMemo()"
+                    >
+                        새로운 메모 생성하기
+                    </button>
+                </div>
+                <div class="column">
+                    <button
+                        class="button is-info is-light is-fullwidth"
+                        @click="reset()"
+                    >
+                        전체 메모 다시 불러오기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="section" v-for:="memo in memos">
         <div class="container">
             <h1 class="title is-4">{{ getDate(memo.edit) }}</h1>
@@ -34,12 +57,11 @@
             >
                 더 불러오기
             </button>
-
             <button
-                class="button is-danger is-light is-fullwidth dmui-m-t"
-                @click="reset()"
+                class="button is-link is-light is-fullwidth dmui-m-t"
+                @click="TOP()"
             >
-                전체 메모 다시 불러오기
+                위로 올라가기
             </button>
         </div>
     </section>
@@ -54,7 +76,7 @@ import { api } from "@/config";
 import { getToken, login } from "@/utils";
 import { defaultError, getDate } from "@/utils";
 import { setAdmin, notAdmin } from "@/utils";
-import { saveMemo } from "@/memo";
+import { createMemo, saveMemo } from "@/memo";
 
 export default {
     setup() {
@@ -239,6 +261,13 @@ export default {
         }
 
         return {
+            createMemo: () => {
+                createMemo()
+                    .then(() => {
+                        fetchMemo();
+                    })
+                    .catch((e) => defaultError(e));
+            },
             decryptMemo,
             encryptMemo,
             showButton,
@@ -248,6 +277,12 @@ export default {
             onBlur,
             fetchMemo,
             getDate,
+            TOP: () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+            },
         };
     },
 };
