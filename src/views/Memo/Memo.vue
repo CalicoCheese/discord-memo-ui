@@ -121,6 +121,7 @@ export default {
         const needPassword = (i, cb) => {
             Swal.fire({
                 icon: "question",
+                title: cb == ENCRYPT ? "메모 암호화" : "메모 복호화",
                 text: "비밀번호를 입력해주세요.",
                 input: "password",
                 inputAutoTrim: true,
