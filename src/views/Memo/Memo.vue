@@ -112,7 +112,7 @@ export default {
             const p = passwords.value[i];
 
             if (p == undefined) {
-                needPassword(i, ENCRYPT);
+                needPassword(i, DECRYPT);
             } else {
                 alert("암호화 기능은 아직 구현되지 않았습니다.");
             }
