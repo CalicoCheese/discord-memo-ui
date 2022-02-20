@@ -186,6 +186,10 @@ export default {
                 timerProgressBar: true,
             }).then((e) => {
                 if (e.isConfirmed) {
+                    if (e.encrypted) {
+                        encryptMemo(i);
+                    }
+
                     saveMemo(memos.value[i], memos);
                 } else {
                     Swal.fire({
