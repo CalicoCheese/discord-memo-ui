@@ -4,6 +4,11 @@ import { getToken, defaultError } from "@/utils";
 import { api } from "@/config";
 
 function editMemo(m) {
+    let text = m.text.trim();
+    if (m.encrypted) {
+        text = m.encCipher;
+    }
+
     axios({
         method: "PUT",
         url: `${api.host}/memo/${m.id}`,
@@ -12,7 +17,7 @@ function editMemo(m) {
         },
         data: {
             edit: m.edit,
-            text: m.text.trim(),
+            text: text,
             encrypted: m.encrypted,
         },
     })

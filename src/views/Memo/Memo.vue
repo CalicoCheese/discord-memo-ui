@@ -86,6 +86,9 @@ export default {
         const lastId = ref(0);
         const passwords = ref({});
 
+        // SHA256
+        const SHA256 = sha256.create();
+
         // IF문용 상수
         const DECRYPT = -5; // 아무의미 없음
         const ENCRYPT = 21; // 아무의미 없음
@@ -102,7 +105,7 @@ export default {
             const p = passwords.value[i];
 
             if (p == undefined) {
-                needPassword(i, ENCRYPT);
+                needPassword(i, DECRYPT);
             } else {
                 alert("암호화 기능은 아직 구현되지 않았습니다.");
             }
@@ -112,9 +115,31 @@ export default {
             const p = passwords.value[i];
 
             if (p == undefined) {
-                needPassword(i, DECRYPT);
+                needPassword(i, ENCRYPT);
             } else {
-                alert("암호화 기능은 아직 구현되지 않았습니다.");
+                SHA256.update(p);
+                const KEY = SHA256.digest();
+                const IV = getBytesSync(16);
+
+                const TEXT = createBuffer(memos.value[i].text, "utf8");
+
+                const CIPHER = createCipher("AES-CBC", KEY);
+                CIPHER.start({ iv: IV });
+                CIPHER.update(TEXT);
+                CIPHER.finish();
+
+                const THEX = CIPHER.output.toHex();
+
+                let ivHEX = new Uint8Array(16);
+                for (let index = 0; index < 16; index++) {
+                    ivHEX[index] = IV[index].charCodeAt(0);
+                }
+
+                ivHEX = Buffer.from(ivHEX).toString("hex");
+
+                memos.value[i].encrypted = true;
+                memos.value[i].encCipher = `${ivHEX}.${THEX}`;
+                saveMemo(memos.value[i], memos);
             }
         };
 
@@ -194,6 +219,10 @@ export default {
                         let this_last_id = lastId.value;
 
                         data.data.forEach((e) => {
+                            if (e.encrypted) {
+                                e.encCipher = e.text;
+                            }
+
                             e.display = !e.encrypted;
                             memos.value[e.id] = e;
                             this_last_id = e.id;
