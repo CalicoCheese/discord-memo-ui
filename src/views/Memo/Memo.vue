@@ -24,7 +24,15 @@
 
     <section class="section" v-for:="memo in memos">
         <div class="container">
-            <h1 class="title is-4">{{ getDate(memo.edit) }}</h1>
+            <h1 class="title is-4">
+                {{ getDate(memo.edit) }}
+                <span
+                    v-if="memo.encrypted == false && memo.display == true"
+                    @click="encryptMemo(memo.id)"
+                >
+                    🔓
+                </span>
+            </h1>
 
             <div class="content is-large" v-if="memo.display != true">
                 <blockquote @click="decryptMemo(memo.id)">
@@ -38,14 +46,6 @@
                 v-model="memo.text"
                 @blur="onBlur(memo.id)"
             ></textarea>
-
-            <button
-                v-if="memo.encrypted == false && memo.display == true"
-                class="button is-info is-light is-fullwidth dmui-m-t"
-                @click="encryptMemo(memo.id)"
-            >
-                메모 암호화 하기
-            </button>
         </div>
     </section>
 
