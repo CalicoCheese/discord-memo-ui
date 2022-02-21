@@ -90,9 +90,6 @@ export default {
         const lastId = ref(0);
         const passwords = ref({});
 
-        // SHA256
-        const SHA256 = sha256.create();
-
         // IF문용 상수
         const DECRYPT = -5; // 아무의미 없음
         const ENCRYPT = 21; // 아무의미 없음
@@ -121,7 +118,8 @@ export default {
             if (p == undefined) {
                 needPassword(i, ENCRYPT);
             } else {
-                SHA256.update(p);
+                let SHA256 = sha256.create();
+                /* ^•ω•^ */ SHA256.update(p);
                 const KEY = SHA256.digest();
                 const IV = getBytesSync(16);
 
