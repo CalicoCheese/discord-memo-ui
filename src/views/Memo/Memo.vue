@@ -228,7 +228,7 @@ export default {
                 timerProgressBar: true,
             }).then((e) => {
                 if (e.isConfirmed) {
-                    if (e.encrypted) {
+                    if (memos.value[i].encrypted) {
                         encryptMemo(i);
                     }
 
