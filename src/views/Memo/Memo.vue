@@ -230,9 +230,9 @@ export default {
                 if (e.isConfirmed) {
                     if (memos.value[i].encrypted) {
                         encryptMemo(i);
+                    } else {
+                        saveMemo(memos.value[i], memos);
                     }
-
-                    saveMemo(memos.value[i], memos);
                 } else {
                     Swal.fire({
                         icon: "warning",
