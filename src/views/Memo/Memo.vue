@@ -74,7 +74,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import sha256 from "node-forge/lib/sha256";
 import { createBuffer } from "node-forge/lib/util";
-import { createCipher } from "node-forge/lib/cipher";
+import { createCipher, createDecipher } from "node-forge/lib/cipher";
 import { getBytesSync } from "node-forge/lib/random";
 import { api } from "@/config";
 import { getToken, login } from "@/utils";
@@ -108,7 +108,51 @@ export default {
             if (p == undefined) {
                 needPassword(i, DECRYPT);
             } else {
-                alert("암호화 기능은 아직 구현되지 않았습니다.");
+                let SHA256 = sha256.create();
+                /* ^•ω•^ */ SHA256.update(p);
+                const KEY = SHA256.digest();
+
+                const encPayload = memos.value[i].encCipher.split(".");
+
+                let IV = "";
+                Buffer.from(encPayload[0], "hex").forEach((hex) => {
+                    IV += String.fromCharCode(hex);
+                });
+
+                let THEX = "";
+                Buffer.from(encPayload[1], "hex").forEach((hex) => {
+                    THEX += String.fromCharCode(hex);
+                });
+
+                THEX = createBuffer(THEX, "raw");
+
+                const DECIPHER = createDecipher("AES-CBC", KEY);
+                DECIPHER.start({ iv: IV });
+                DECIPHER.update(THEX);
+
+                let result = DECIPHER.finish();
+
+                const iamFail = () => {
+                    memos.value[i].text = "";
+                    memos.value[i].display = false;
+                    passwords.value[i] = undefined;
+
+                    Swal.fire({
+                        icon: "error",
+                        text: "메모 복호화에 실패했습니다.",
+                    });
+                };
+
+                if (result == true) {
+                    try {
+                        memos.value[i].text = DECIPHER.output.toString();
+                        memos.value[i].display = true;
+                    } catch {
+                        iamFail();
+                    }
+                } else {
+                    iamFail();
+                }
             }
         };
 
