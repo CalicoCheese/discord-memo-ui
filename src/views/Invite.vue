@@ -20,8 +20,8 @@ export default {
         axios({
             url: `${api.host}/bot/get-url`,
         })
-            .then((e) => {
-                const data = e.data;
+            .then((resp) => {
+                const data = resp.data;
                 const url = data.data.invite;
 
                 window.location.replace(url);

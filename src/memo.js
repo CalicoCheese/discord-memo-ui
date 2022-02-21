@@ -3,26 +3,26 @@ import Swal from "sweetalert2";
 import { getToken, defaultError } from "@/utils";
 import { api } from "@/config";
 
-function editMemo(m) {
-    let text = m.text.trim();
-    if (m.encrypted) {
-        text = m.encCipher;
+function editMemo(memo) {
+    let text = memo.text.trim();
+    if (memo.encrypted) {
+        text = memo.encCipher;
     }
 
     axios({
         method: "PUT",
-        url: `${api.host}/memo/${m.id}`,
+        url: `${api.host}/memo/${memo.id}`,
         headers: {
             Authorization: getToken(),
         },
         data: {
-            edit: m.edit,
+            edit: memo.edit,
             text: text,
-            encrypted: m.encrypted,
+            encrypted: memo.encrypted,
         },
     })
-        .then((e) => {
-            const data = e.data;
+        .then((resp) => {
+            const data = resp.data;
             Swal.fire({
                 icon: "success",
                 text: data.meta.message,
@@ -30,19 +30,19 @@ function editMemo(m) {
                 timerProgressBar: true,
             });
         })
-        .catch((e) => defaultError(e));
+        .catch((err) => defaultError(err));
 }
 
-function deleteMemo(m, ms) {
+function deleteMemo(memo, memos) {
     axios({
         method: "DELETE",
-        url: `${api.host}/memo/${m.id}`,
+        url: `${api.host}/memo/${memo.id}`,
         headers: {
             Authorization: getToken(),
         },
     })
-        .then((e) => {
-            const data = e.data;
+        .then((resp) => {
+            const data = resp.data;
             Swal.fire({
                 icon: "success",
                 text: data.meta.message,
@@ -50,16 +50,16 @@ function deleteMemo(m, ms) {
                 timerProgressBar: true,
             });
 
-            delete ms.value[m.id];
+            delete memos.value[memo.id];
         })
-        .catch((e) => defaultError(e));
+        .catch((err) => defaultError(err));
 }
 
-export function saveMemo(m, ms) {
-    if (m.text.trim().length == 0) {
-        deleteMemo(m, ms);
+export function saveMemo(memo, memos) {
+    if (memo.text.trim().length == 0) {
+        deleteMemo(memo, memos);
     } else {
-        editMemo(m);
+        editMemo(memo);
     }
 }
 
@@ -67,7 +67,7 @@ export function createMemo() {
     return new Promise((resolve, reject) => {
         Swal.fire({
             input: "textarea",
-        }).then((e) => {
+        }).then((swalResp) => {
             axios({
                 method: "POST",
                 url: `${api.host}/memo`,
@@ -75,15 +75,15 @@ export function createMemo() {
                     Authorization: getToken(),
                 },
                 data: {
-                    text: e.value,
+                    text: swalResp.value,
                     encrypted: false,
                 },
             })
-                .then((e) => {
-                    resolve(e);
+                .then((resp) => {
+                    resolve(resp);
                 })
-                .catch((e) => {
-                    reject(e);
+                .catch((err) => {
+                    reject(err);
                 });
         });
     });

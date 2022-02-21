@@ -102,40 +102,40 @@ export default {
             fetchMemo();
         };
 
-        const decryptMemo = (i) => {
-            const p = passwords.value[i];
+        const decryptMemo = (id) => {
+            const password = passwords.value[id];
 
-            if (p == undefined) {
-                needPassword(i, DECRYPT);
+            if (password == undefined) {
+                needPassword(id, DECRYPT);
             } else {
                 let SHA256 = sha256.create();
-                /* ^•ω•^ */ SHA256.update(p);
+                /* ^•ω•^ */ SHA256.update(password);
                 const KEY = SHA256.digest();
 
-                const encPayload = memos.value[i].encCipher.split(".");
+                const encPayload = memos.value[id].encCipher.split(".");
 
                 let IV = "";
                 Buffer.from(encPayload[0], "hex").forEach((hex) => {
                     IV += String.fromCharCode(hex);
                 });
 
-                let THEX = "";
+                let encryptedResult = "";
                 Buffer.from(encPayload[1], "hex").forEach((hex) => {
-                    THEX += String.fromCharCode(hex);
+                    encryptedResult += String.fromCharCode(hex);
                 });
 
-                THEX = createBuffer(THEX, "raw");
+                encryptedResult = createBuffer(encryptedResult, "raw");
 
                 const DECIPHER = createDecipher("AES-CBC", KEY);
                 DECIPHER.start({ iv: IV });
-                DECIPHER.update(THEX);
+                DECIPHER.update(encryptedResult);
 
                 let result = DECIPHER.finish();
 
                 const iamFail = () => {
-                    memos.value[i].text = "";
-                    memos.value[i].display = false;
-                    passwords.value[i] = undefined;
+                    memos.value[id].text = "";
+                    memos.value[id].display = false;
+                    passwords.value[id] = undefined;
 
                     Swal.fire({
                         icon: "error",
@@ -145,8 +145,8 @@ export default {
 
                 if (result == true) {
                     try {
-                        memos.value[i].text = DECIPHER.output.toString();
-                        memos.value[i].display = true;
+                        memos.value[id].text = DECIPHER.output.toString();
+                        memos.value[id].display = true;
                     } catch {
                         iamFail();
                     }
@@ -156,25 +156,25 @@ export default {
             }
         };
 
-        const encryptMemo = (i) => {
-            const p = passwords.value[i];
+        const encryptMemo = (id) => {
+            const password = passwords.value[id];
 
-            if (p == undefined) {
-                needPassword(i, ENCRYPT);
+            if (password == undefined) {
+                needPassword(id, ENCRYPT);
             } else {
                 let SHA256 = sha256.create();
-                /* ^•ω•^ */ SHA256.update(p);
+                /* ^•ω•^ */ SHA256.update(password);
                 const KEY = SHA256.digest();
                 const IV = getBytesSync(16);
 
-                const TEXT = createBuffer(memos.value[i].text, "utf8");
+                const TEXT = createBuffer(memos.value[id].text, "utf8");
 
                 const CIPHER = createCipher("AES-CBC", KEY);
                 CIPHER.start({ iv: IV });
                 CIPHER.update(TEXT);
                 CIPHER.finish();
 
-                const THEX = CIPHER.output.toHex();
+                const encryptedResult = CIPHER.output.toHex();
 
                 let ivHEX = new Uint8Array(16);
                 for (let index = 0; index < 16; index++) {
@@ -183,21 +183,21 @@ export default {
 
                 ivHEX = Buffer.from(ivHEX).toString("hex");
 
-                memos.value[i].encrypted = true;
-                memos.value[i].encCipher = `${ivHEX}.${THEX}`;
-                saveMemo(memos.value[i], memos);
+                memos.value[id].encrypted = true;
+                memos.value[id].encCipher = `${ivHEX}.${encryptedResult}`;
+                saveMemo(memos.value[id], memos);
             }
         };
 
-        const needPassword = (i, cb) => {
+        const needPassword = (id, mode) => {
             Swal.fire({
                 icon: "question",
-                title: cb == ENCRYPT ? "메모 암호화" : "메모 복호화",
+                title: mode == ENCRYPT ? "메모 암호화" : "메모 복호화",
                 text: "비밀번호를 입력해주세요.",
                 input: "password",
                 inputAutoTrim: true,
-            }).then((e) => {
-                if (e.value == null || e.value.length == 0) {
+            }).then((swalResp) => {
+                if (swalResp.value == null || swalResp.value.length == 0) {
                     Swal.fire({
                         icon: "error",
                         text: "비밀번호를 입력해주세요!",
@@ -205,18 +205,18 @@ export default {
                         timerProgressBar: true,
                     });
                 } else {
-                    passwords.value[i] = e.value;
+                    passwords.value[id] = swalResp.value;
 
-                    if (cb == DECRYPT) {
-                        decryptMemo(i);
-                    } else if (cb == ENCRYPT) {
-                        encryptMemo(i);
+                    if (mode == DECRYPT) {
+                        decryptMemo(id);
+                    } else if (mode == ENCRYPT) {
+                        encryptMemo(id);
                     }
                 }
             });
         };
 
-        const onBlur = (i) => {
+        const onBlur = (id) => {
             Swal.fire({
                 icon: "question",
                 text: "메모를 저장할까요?",
@@ -226,12 +226,12 @@ export default {
                 cancelButtonText: "아니요",
                 timer: 2077,
                 timerProgressBar: true,
-            }).then((e) => {
-                if (e.isConfirmed) {
-                    if (memos.value[i].encrypted) {
-                        encryptMemo(i);
+            }).then((swalResp) => {
+                if (swalResp.isConfirmed) {
+                    if (memos.value[id].encrypted) {
+                        encryptMemo(id);
                     } else {
-                        saveMemo(memos.value[i], memos);
+                        saveMemo(memos.value[id], memos);
                     }
                 } else {
                     Swal.fire({
@@ -255,8 +255,8 @@ export default {
                     Authorization: getToken(),
                 },
             })
-                .then((e) => {
-                    const data = e.data;
+                .then((resp) => {
+                    const data = resp.data;
 
                     if (lastId.value == 0 && data.data.length == 0) {
                         Swal.fire({
@@ -266,22 +266,24 @@ export default {
                             timerProgressBar: true,
                         });
                     } else {
-                        let this_last_id = lastId.value;
+                        let thisLastId = lastId.value;
 
-                        data.data.forEach((e) => {
-                            if (e.encrypted) {
-                                e.encCipher = e.text;
+                        data.data.forEach((ctx) => {
+                            if (ctx.encrypted) {
+                                ctx.encCipher = ctx.text;
                             }
 
-                            e.display = !e.encrypted;
-                            memos.value[e.id] = e;
-                            this_last_id = e.id;
+                            // 암호화라면 숨기고 평문이면 보여주고
+                            ctx.display = !ctx.encrypted;
+
+                            memos.value[ctx.id] = ctx;
+                            thisLastId = ctx.id;
                         });
 
-                        lastId.value = this_last_id;
+                        lastId.value = thisLastId;
                     }
                 })
-                .catch((e) => defaultError(e));
+                .catch((err) => defaultError(err));
 
             // 버튼 보여주기
             showButton.value = true;
@@ -305,8 +307,8 @@ export default {
                     Authorization: getToken(),
                 },
             })
-                .then((e) => {
-                    const data = e.data;
+                .then((resp) => {
+                    const data = resp.data;
 
                     if (data.data.admin) {
                         setAdmin();
@@ -337,7 +339,7 @@ export default {
                         fetchMemo();
                     }
                 })
-                .catch((e) => defaultError(e));
+                .catch((err) => defaultError(err));
         }
 
         return {
@@ -346,7 +348,7 @@ export default {
                     .then(() => {
                         fetchMemo();
                     })
-                    .catch((e) => defaultError(e));
+                    .catch((err) => defaultError(err));
             },
             decryptMemo,
             encryptMemo,

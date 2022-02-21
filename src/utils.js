@@ -96,8 +96,8 @@ export function logout() {
     sessionStorage.clear();
 }
 
-export function defaultError(e) {
-    if (e.response == undefined) {
+export function defaultError(err) {
+    if (err.response == undefined) {
         Swal.fire({
             icon: "error",
             text: "알 수 없는 오류가 발생했습니다.",
@@ -107,7 +107,7 @@ export function defaultError(e) {
             router.push({ name: "Home" });
         });
     } else {
-        const data = e.response.data;
+        const data = err.response.data;
 
         if (data.meta.code == 401) {
             logout();
@@ -127,8 +127,7 @@ export function defaultError(e) {
     }
 }
 
-export function getDate(ts) {
-    // ts == TimeStamp
-    let d = new Date(ts * 1000);
+export function getDate(timeStamp) {
+    let d = new Date(timeStamp * 1000);
     return d.toLocaleDateString();
 }

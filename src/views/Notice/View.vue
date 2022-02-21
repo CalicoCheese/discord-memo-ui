@@ -73,13 +73,13 @@ export default {
                 method: "GET",
                 url: `${api.host}/notice/${id}`,
             })
-                .then((e) => {
-                    const data = e.data;
+                .then((resp) => {
+                    const data = resp.data;
                     title.value = data.data.title;
                     text.value = parse(data.data.text);
                     date.value = getDate(data.data.date);
                 })
-                .catch((e) => defaultError(e));
+                .catch((err) => defaultError(err));
         };
 
         fetchNotice();

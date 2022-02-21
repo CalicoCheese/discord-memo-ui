@@ -92,13 +92,13 @@ export default {
                 method: "GET",
                 url: `${api.host}/notice/${id}`,
             })
-                .then((e) => {
-                    const data = e.data;
+                .then((resp) => {
+                    const data = resp.data;
                     type.value = data.data.type;
                     title.value = data.data.title;
                     text.value = data.data.text;
                 })
-                .catch((e) => defaultError(e));
+                .catch((err) => defaultError(err));
         };
 
         fetchNotice();
@@ -116,8 +116,8 @@ export default {
                     text: text.value,
                 },
             })
-                .then((e) => {
-                    const data = e.data;
+                .then((resp) => {
+                    const data = resp.data;
                     Swal.fire({
                         icon: "success",
                         text: data.meta.message,
@@ -132,7 +132,7 @@ export default {
                         });
                     });
                 })
-                .catch((e) => defaultError(e));
+                .catch((err) => defaultError(err));
         };
 
         return {

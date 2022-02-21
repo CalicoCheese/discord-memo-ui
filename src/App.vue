@@ -67,8 +67,8 @@ export default {
         const spinner = ref();
 
         // 스피너 핸들러
-        watch(spinner, (need_spin) => {
-            if (need_spin) {
+        watch(spinner, () => {
+            if (spinner.value) {
                 loadingObj = loading.show({
                     color: "#FFCC4D",
                     canCancel: false,

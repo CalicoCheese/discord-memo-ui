@@ -36,8 +36,8 @@ export default {
                     code: code,
                 },
             })
-                .then((e) => {
-                    const data = e.data;
+                .then((resp) => {
+                    const data = resp.data;
 
                     // 토큰과 만료시간 저장
                     localStorage.setItem(token.key, data.data.token);
@@ -56,7 +56,7 @@ export default {
                         });
                     }
                 })
-                .catch((e) => defaultError(e));
+                .catch((err) => defaultError(err));
         }
     },
 };

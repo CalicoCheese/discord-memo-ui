@@ -32,12 +32,12 @@ export default {
                 method: "GET",
                 url: `${api.host}/tos`,
             })
-                .then((e) => {
-                    const data = e.data;
+                .then((resp) => {
+                    const data = resp.data;
                     date.value = data.data.date;
                     text.value = parse(data.data.text);
                 })
-                .catch((e) => defaultError(e));
+                .catch((err) => defaultError(err));
         };
 
         fetchToS();

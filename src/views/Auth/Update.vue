@@ -109,8 +109,8 @@ export default {
                         Authorization: getToken(),
                     },
                 })
-                    .then((e) => {
-                        const data = e.data;
+                    .then((resp) => {
+                        const data = resp.data;
 
                         Swal.fire({
                             icon: "success",
@@ -119,8 +119,8 @@ export default {
                             router.push({ name: "Memo" });
                         });
                     })
-                    .catch((e) => {
-                        if (e.response == undefined) {
+                    .catch((err) => {
+                        if (err.response == undefined) {
                             fire("알 수 없는 오류가 발생했습니다.");
                             Swal.fire({
                                 icon: "error",
@@ -131,7 +131,7 @@ export default {
                                 router.push({ name: "Home" });
                             });
                         } else {
-                            const data = e.response.data;
+                            const data = err.response.data;
                             if (data.data) {
                                 Swal.fire({
                                     icon: "info",

@@ -108,8 +108,8 @@ export default {
                 showCloseButton: true,
                 timer: 2022,
                 timerProgressBar: true,
-            }).then((e) => {
-                if (e.isConfirmed) {
+            }).then((swalResp) => {
+                if (swalResp.isConfirmed) {
                     router.push({ name: "Memo" });
                 }
             });

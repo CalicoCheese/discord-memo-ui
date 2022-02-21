@@ -98,8 +98,8 @@ export default {
                     text: text.value,
                 },
             })
-                .then((e) => {
-                    const data = e.data;
+                .then((resp) => {
+                    const data = resp.data;
                     Swal.fire({
                         icon: "success",
                         text: data.meta.message,
@@ -114,7 +114,7 @@ export default {
                         });
                     });
                 })
-                .catch((e) => defaultError(e));
+                .catch((err) => defaultError(err));
         };
 
         return {

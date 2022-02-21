@@ -14,9 +14,11 @@ import { logout } from "@/utils";
 
 export default {
     setup() {
+        const router = useRouter();
+
+        // 모든 정보 삭제!
         logout();
 
-        const router = useRouter();
         Swal.fire({
             icon: "info",
             title: "완료",

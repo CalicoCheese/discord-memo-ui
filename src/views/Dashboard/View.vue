@@ -99,6 +99,7 @@ export default {
     setup() {
         const payload = getPayload();
 
+        // 잘못된 인증토큰 또는 로그인 상태가 아님
         if (payload == undefined) {
             return {
                 display: false,
@@ -116,14 +117,14 @@ export default {
                 Authorization: getToken(),
             },
         })
-            .then((e) => {
-                const data = e.data;
+            .then((resp) => {
+                const data = resp.data;
 
                 creation_date.value = data.data.creation_date;
                 tos_agree_date.value = data.data.tos_agree_date;
                 memo_count.value = data.data.memo_count;
             })
-            .catch((e) => defaultError(e));
+            .catch((err) => defaultError(err));
 
         return {
             display: true,

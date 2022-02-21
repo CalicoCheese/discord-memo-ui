@@ -28,8 +28,8 @@ export default {
                     Authorization: getToken(),
                 },
             })
-                .then((e) => {
-                    const data = e.data;
+                .then((resp) => {
+                    const data = resp.data;
                     Swal.fire({
                         icon: "success",
                         text: data.meta.message,
@@ -39,7 +39,7 @@ export default {
                         router.push({ name: "Notice.List" });
                     });
                 })
-                .catch((e) => defaultError(e));
+                .catch((err) => defaultError(err));
         } else {
             router.push({ name: "Home" });
         }

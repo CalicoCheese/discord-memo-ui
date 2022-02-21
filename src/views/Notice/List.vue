@@ -85,8 +85,12 @@ export default {
                     min += 1;
                 }
 
-                for (let i = min; i < page.value; i++) {
-                    pages.value.push(i);
+                for (
+                    let numberOfPage = min;
+                    numberOfPage < page.value;
+                    numberOfPage++
+                ) {
+                    pages.value.push(numberOfPage);
                 }
             }
 
@@ -102,8 +106,12 @@ export default {
                 max -= max - max_page.value;
             }
 
-            for (let i = page.value; i <= max; i++) {
-                pages.value.push(i);
+            for (
+                let numberOfPage = page.value;
+                numberOfPage <= max;
+                numberOfPage++
+            ) {
+                pages.value.push(numberOfPage);
             }
         };
 
@@ -115,8 +123,8 @@ export default {
                     page: page.value,
                 },
             })
-                .then((e) => {
-                    const data = e.data;
+                .then((resp) => {
+                    const data = resp.data;
 
                     Object.assign(notices.value, data.data.notice);
 
@@ -125,7 +133,7 @@ export default {
 
                     updatePages();
                 })
-                .catch((e) => defaultError(e));
+                .catch((err) => defaultError(err));
         };
 
         fetchNotice();
@@ -136,8 +144,8 @@ export default {
             getDate,
             page,
             pages,
-            setPage: (p) => {
-                page.value = p;
+            setPage: (newPageNumber) => {
+                page.value = newPageNumber;
                 fetchNotice();
             },
         };

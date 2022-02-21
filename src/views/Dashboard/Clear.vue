@@ -29,8 +29,8 @@ export default {
                 cancelButtonText: "아니요",
                 showConfirmButton: true,
                 showCancelButton: true,
-            }).then((e) => {
-                if (e.isConfirmed) {
+            }).then((swalResp) => {
+                if (swalResp.isConfirmed) {
                     axios({
                         method: "DELETE",
                         url: `${api.host}/memo`,
@@ -38,8 +38,8 @@ export default {
                             Authorization: getToken(),
                         },
                     })
-                        .then((e) => {
-                            const data = e.data;
+                        .then((resp) => {
+                            const data = resp.data;
                             Swal.fire({
                                 icon: "success",
                                 text: data.meta.message,
@@ -49,7 +49,7 @@ export default {
                                 router.push({ name: "Dashboard.View" });
                             });
                         })
-                        .catch((e) => defaultError(e));
+                        .catch((err) => defaultError(err));
                 } else {
                     Swal.fire({
                         icon: "info",
