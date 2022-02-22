@@ -81,8 +81,7 @@
                     <a :href="home.email">이메일</a>로 연락해주세요.
                 </p>
                 <p>
-                    또는 <a :href="home.github.profile">Github</a>에 이슈를
-                    남겨주세요.
+                    또는 <a :href="home.profile">Github</a>에 이슈를 남겨주세요.
                 </p>
             </div>
         </div>

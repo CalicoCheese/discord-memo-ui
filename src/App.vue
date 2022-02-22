@@ -7,7 +7,7 @@
                 <div class="column">
                     <div class="column">&copy; Calico Cheese</div>
                     <div class="column">
-                        <a :href="home.github.profile">Github</a>
+                        <a :href="home.profile">Github</a>
                     </div>
                 </div>
                 <div class="column">
