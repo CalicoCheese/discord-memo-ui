@@ -84,6 +84,12 @@
             >
                 계정 삭제
             </router-link>
+            <router-link
+                class="button is-primary is-medium"
+                :to="{ name: 'Memo' }"
+            >
+                메모 보러가기
+            </router-link>
         </div>
     </section>
 </template>
@@ -141,6 +147,6 @@ export default {
 
 <style scoped>
 .button {
-    margin-right: 10px;
+    margin-right: 5px;
 }
 </style>
