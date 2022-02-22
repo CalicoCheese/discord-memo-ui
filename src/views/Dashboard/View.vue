@@ -96,6 +96,7 @@ import { getToken, getPayload, getDate } from "@/utils";
 import { defaultError } from "@/utils";
 
 export default {
+    name: "dashboard-view-my-info",
     setup() {
         const payload = getPayload();
 

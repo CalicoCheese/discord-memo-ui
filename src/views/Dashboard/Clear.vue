@@ -16,6 +16,7 @@ import { login, getToken } from "@/utils";
 import { defaultError } from "@/utils";
 
 export default {
+    name: "dashboard-clear-memos",
     setup() {
         const router = useRouter();
 

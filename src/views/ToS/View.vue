@@ -23,6 +23,7 @@ import { api } from "@/config";
 import { defaultError, getDate } from "@/utils";
 
 export default {
+    name: "view-tos",
     setup() {
         const date = ref(0);
         const text = ref("");

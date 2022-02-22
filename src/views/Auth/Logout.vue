@@ -13,6 +13,7 @@ import { useRouter } from "vue-router";
 import { logout } from "@/utils";
 
 export default {
+    name: "auth-logout",
     setup() {
         const router = useRouter();
 

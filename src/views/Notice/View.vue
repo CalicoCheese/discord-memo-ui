@@ -50,6 +50,7 @@ import { defaultError, getDate } from "@/utils";
 import { isAdmin } from "@/utils";
 
 export default {
+    name: "view-notice",
     setup() {
         const route = useRoute();
         const id = route.params.id;

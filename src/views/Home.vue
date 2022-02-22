@@ -96,6 +96,7 @@ import { login } from "@/utils";
 import { home } from "@/config";
 
 export default {
+    name: "home-sweet-home",
     setup() {
         if (login()) {
             const router = useRouter();

@@ -71,6 +71,7 @@ import { api, notice } from "@/config";
 import { getToken, defaultError } from "@/utils";
 
 export default {
+    name: "new-or-create-notice",
     setup() {
         const router = useRouter();
         const type = ref(0);

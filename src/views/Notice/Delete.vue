@@ -15,6 +15,7 @@ import { api } from "@/config";
 import { login, getToken, defaultError } from "@/utils";
 
 export default {
+    name: "notice-delete",
     setup() {
         const route = useRoute();
         const router = useRouter();

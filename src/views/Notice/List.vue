@@ -70,6 +70,7 @@ import { defaultError, getDate } from "@/utils";
 import { isAdmin } from "@/utils";
 
 export default {
+    name: "notice-show-list",
     setup() {
         const notices = ref([]);
         const page = ref(0);

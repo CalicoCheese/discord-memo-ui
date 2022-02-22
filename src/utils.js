@@ -1,3 +1,4 @@
+import { Buffer } from "buffer/";
 import Swal from "sweetalert2";
 import { token } from "@/config";
 import router from "./router";

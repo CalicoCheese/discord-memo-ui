@@ -17,6 +17,7 @@ import { getPayload } from "@/utils";
 import { defaultError } from "@/utils";
 
 export default {
+    name: "dashboard-delete-me",
     setup() {
         const router = useRouter();
 

@@ -14,6 +14,7 @@ import { useRouter } from "vue-router";
 import { api } from "@/config";
 
 export default {
+    name: "invite-discord-bot",
     setup() {
         const router = useRouter();
 

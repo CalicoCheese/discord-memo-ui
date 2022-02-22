@@ -15,6 +15,7 @@ import { defaultError } from "@/utils";
 import { api, token } from "@/config";
 
 export default {
+    name: "auth-callback-from-discord-oauth",
     setup() {
         const route = useRoute();
         const router = useRouter();

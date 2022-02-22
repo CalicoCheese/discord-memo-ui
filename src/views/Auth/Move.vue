@@ -15,6 +15,7 @@ import { api } from "@/config";
 import { login } from "@/utils";
 
 export default {
+    name: "auth-move-to-discord-oauth",
     setup() {
         const router = useRouter();
 

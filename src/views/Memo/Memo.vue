@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import { Buffer } from "buffer/";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ref } from "vue";
@@ -83,6 +84,7 @@ import { setAdmin, notAdmin } from "@/utils";
 import { createMemo, saveMemo } from "@/memo";
 
 export default {
+    name: "view-and-edit",
     setup() {
         const router = useRouter();
         const showButton = ref(false);

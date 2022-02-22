@@ -65,6 +65,7 @@ import { api } from "@/config";
 import { getToken, login } from "@/utils";
 
 export default {
+    name: "auth-update",
     setup() {
         const router = useRouter();
         const tos_agree = ref(false);
