@@ -376,4 +376,8 @@ export default {
 .dmui-m-t {
     margin-top: 10px;
 }
+
+.textarea {
+    height: 1200px;
+}
 </style>
