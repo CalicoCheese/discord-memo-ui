@@ -15,11 +15,23 @@ export const token = {
 export const home = {
     email: "mailto:team@calicocheese.xyz",
     profile: "https://github.com/CalicoCheese",
-    github: {
-        api: "https://github.com/CalicoCheese/discord-memo-api",
-        ui: "https://github.com/CalicoCheese/discord-memo-ui",
-        bot: "https://github.com/CalicoCheese/discord-memo-bot",
-    },
+    projects: [
+        {
+            display: "UI",
+            text: "Vue.JS로 만들어진 클라이언트 입니다.",
+            url: "https://github.com/CalicoCheese/discord-memo-ui",
+        },
+        {
+            display: "API",
+            text: "파이썬 flask로 만들어진 API입니다.",
+            url: "https://github.com/CalicoCheese/discord-memo-api",
+        },
+        // {
+        //     display: "BOT",
+        //     text: "파이썬으로 만들어진 디스코드 봇 입니다.",
+        //     url: "https://github.com/CalicoCheese/discord-memo-bot",
+        // },
+    ],
 };
 
 export const notice = [

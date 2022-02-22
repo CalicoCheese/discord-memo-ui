@@ -58,14 +58,9 @@
             <div class="content is-medium">
                 <p>이 메모 프로젝트는 <b>오픈소스 프로젝트</b> 입니다.</p>
                 <ul>
-                    <li>
-                        <a :href="home.github.ui">UI</a>
-                    </li>
-                    <li>
-                        <a :href="home.github.api">API</a>
-                    </li>
-                    <li>
-                        <a :href="home.github.bot">BOT</a>
+                    <li v-for:="project in home.projects">
+                        <a :href="project.url">{{ project.display }}</a>
+                        <span>{{ project.text }}</span>
                     </li>
                 </ul>
             </div>
@@ -130,5 +125,10 @@ export default {
 
 .button {
     margin-right: 5px;
+}
+
+li > a {
+    display: inline-block;
+    width: 45px;
 }
 </style>
