@@ -6,36 +6,39 @@
                 <p>디스코드 봇한테 DM을 보내면 메모가 등록됩니다.</p>
             </div>
 
-            <router-link
-                class="button is-link is-medium"
-                v-if="isLogin == false"
-                :to="{ name: 'Auth.Move' }"
-            >
-                로그인
-            </router-link>
-            <router-link
-                class="button is-dark is-medium"
-                v-else-if="isLogin == true"
-                :to="{ name: 'Auth.Logout' }"
-            >
-                로그아웃
-            </router-link>
+            <div v-if="isLogin == true" class="dmui-m-bt">
+                <router-link
+                    class="button is-primary is-medium"
+                    :to="{ name: 'Memo' }"
+                >
+                    메모 보러가기
+                </router-link>
+            </div>
 
-            <router-link
-                class="button is-link is-medium"
-                v-if="isLogin == true"
-                :to="{ name: 'Memo' }"
-            >
-                메모
-            </router-link>
+            <div>
+                <router-link
+                    class="button is-link is-medium"
+                    v-if="isLogin == false"
+                    :to="{ name: 'Auth.Move' }"
+                >
+                    로그인
+                </router-link>
+                <router-link
+                    class="button is-dark is-medium"
+                    v-else-if="isLogin == true"
+                    :to="{ name: 'Auth.Logout' }"
+                >
+                    로그아웃
+                </router-link>
 
-            <router-link
-                class="button is-info is-medium"
-                :to="{ name: 'Invite' }"
-                target="_blank"
-            >
-                봇 초대하기
-            </router-link>
+                <router-link
+                    class="button is-info is-medium"
+                    :to="{ name: 'Invite' }"
+                    target="_blank"
+                >
+                    봇 초대하기
+                </router-link>
+            </div>
         </div>
     </section>
 
@@ -125,6 +128,10 @@ export default {
 </script>
 
 <style scoped>
+.dmui-m-bt {
+    margin-bottom: 5px;
+}
+
 .button {
     margin-right: 5px;
 }
