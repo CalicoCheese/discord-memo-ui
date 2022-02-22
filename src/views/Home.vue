@@ -56,9 +56,6 @@
         <div class="container">
             <h1 class="title is-2">오픈소스!</h1>
             <div class="content is-medium">
-                <blockquote>
-                    개발이 완료되지 않는 프로젝트는 비공개 상태입니다.
-                </blockquote>
                 <p>
                     이 메모 프로젝트는 오픈소스 프로젝트 입니다. 다음 링크를
                     확인해주세요.
