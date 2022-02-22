@@ -45,7 +45,10 @@
     <section class="section">
         <div class="container">
             <h1 class="title is-2">암호화</h1>
-            <div class="content is-medium"></div>
+            <div class="content is-medium">
+                <p>클라이언트에서 추가적인 <b>암호화</b>가 가능합니다!</p>
+                <p>사용자가 입력한 비밀번호는 서버에 저장되지 않습니다.</p>
+            </div>
         </div>
     </section>
 
