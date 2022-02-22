@@ -56,10 +56,7 @@
         <div class="container">
             <h1 class="title is-2">오픈소스!</h1>
             <div class="content is-medium">
-                <p>
-                    이 메모 프로젝트는 오픈소스 프로젝트 입니다. 다음 링크를
-                    확인해주세요.
-                </p>
+                <p>이 메모 프로젝트는 <b>오픈소스 프로젝트</b> 입니다.</p>
                 <ul>
                     <li>
                         <a :href="home.github.ui">UI</a>
