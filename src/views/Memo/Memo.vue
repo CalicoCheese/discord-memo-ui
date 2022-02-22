@@ -71,7 +71,7 @@
 import { Buffer } from "buffer/";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import sha256 from "node-forge/lib/sha256";
 import { createBuffer } from "node-forge/lib/util";
@@ -91,6 +91,23 @@ export default {
         const memos = ref({});
         const lastId = ref(0);
         const passwords = ref({});
+
+        watch(
+            memos,
+            () => {
+                Object.keys(memos.value).forEach((id) => {
+                    // 암호화 상태의 메모가 저장되었고,
+                    // 서버에서 메모를 불러왔다면
+                    if (memos.value[id].needDecrypt) {
+                        decryptMemo(id);
+
+                        // 사용한 플래그 비활성화
+                        memos.value[id].needDecrypt = false;
+                    }
+                });
+            },
+            { deep: true }
+        );
 
         // IF문용 상수
         const DECRYPT = -5; // 아무의미 없음
@@ -187,6 +204,7 @@ export default {
 
                 memos.value[id].encrypted = true;
                 memos.value[id].encCipher = `${ivHEX}.${encryptedResult}`;
+
                 saveMemo(memos.value[id], memos);
             }
         };
