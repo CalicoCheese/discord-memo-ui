@@ -36,6 +36,12 @@
         <div class="container">
             <h2 class="title is-2">계정 정보</h2>
             <div class="content is-large">
+                <p v-if="admin == true">
+                    <span class="has-text-link">
+                        {{ userInfo.username }}
+                    </span>
+                    님은 <b class="has-text-danger">관리자</b> 입니다.
+                </p>
                 <p>
                     <span class="has-text-link">
                         {{ userInfo.username }}
@@ -64,6 +70,16 @@
                     <span class="has-text-link">{{ memo_count }}</span>
                     개의 메모를 등록했습니다.
                 </p>
+                <p>
+                    <span class="has-text-link">
+                        {{ userInfo.username }}
+                    </span>
+                    님의 메모는
+                    <span class="has-text-link">
+                        {{ Math.round((enc_memo_count / memo_count) * 100) }}%
+                    </span>
+                    가 암호화 되어있습니다.
+                </p>
             </div>
         </div>
     </section>
@@ -85,7 +101,7 @@
                 계정 삭제
             </router-link>
             <router-link
-                class="button is-primary is-medium"
+                class="button is-primary is-medium is-light"
                 :to="{ name: 'Memo' }"
             >
                 메모 보러가기
@@ -116,6 +132,9 @@ export default {
         const creation_date = ref(0);
         const tos_agree_date = ref(0);
         const memo_count = ref(0);
+        const enc_memo_count = ref(0);
+        const last_login = ref(0);
+        const admin = ref(false);
 
         axios({
             method: "GET",
@@ -130,6 +149,9 @@ export default {
                 creation_date.value = data.data.creation_date;
                 tos_agree_date.value = data.data.tos_agree_date;
                 memo_count.value = data.data.memo_count;
+                enc_memo_count.value = data.data.enc_memo_count;
+                last_login.value = data.data.last_login;
+                admin.value = data.data.admin;
             })
             .catch((err) => defaultError(err));
 
@@ -140,6 +162,9 @@ export default {
             creation_date,
             tos_agree_date,
             memo_count,
+            enc_memo_count,
+            last_login,
+            admin,
         };
     },
 };
