@@ -40,9 +40,8 @@ export default {
                 .then((resp) => {
                     const data = resp.data;
 
-                    // 토큰과 만료시간 저장
+                    // 토큰 저장
                     localStorage.setItem(token.key, data.data.token);
-                    localStorage.setItem(token.exp, data.data.exp);
 
                     if (data.meta.code == 201) {
                         router.push({ name: "Memo" });
