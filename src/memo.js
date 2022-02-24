@@ -1,12 +1,11 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { getToken, defaultError } from "@/utils";
-import { api } from "@/config";
 
 function fetchMemo(id, memos) {
     axios({
         method: "GET",
-        url: `${api.host}/memo/${id}`,
+        url: `/memo/${id}`,
         headers: {
             Authorization: getToken(),
         },
@@ -36,7 +35,7 @@ function editMemo(memo, memos) {
 
     axios({
         method: "PUT",
-        url: `${api.host}/memo/${memo.id}`,
+        url: `/memo/${memo.id}`,
         headers: {
             Authorization: getToken(),
         },
@@ -63,7 +62,7 @@ function editMemo(memo, memos) {
 function deleteMemo(memo, memos) {
     axios({
         method: "DELETE",
-        url: `${api.host}/memo/${memo.id}`,
+        url: `/memo/${memo.id}`,
         headers: {
             Authorization: getToken(),
         },
@@ -97,7 +96,7 @@ export function createMemo() {
         }).then((swalResp) => {
             axios({
                 method: "POST",
-                url: `${api.host}/memo`,
+                url: `/memo`,
                 headers: {
                     Authorization: getToken(),
                 },

@@ -71,7 +71,6 @@ import { useRouter } from "vue-router";
 import { parse } from "marked";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { api } from "@/config";
 import { getToken, login } from "@/utils";
 import { defaultError } from "@/utils";
 
@@ -100,8 +99,7 @@ export default {
         const fetchHTML = () => {
             axios({
                 method: "GET",
-                baseURL: api.host,
-                url: `/tos`,
+                url: "/tos",
             })
                 .then((resp) => {
                     const data = resp.data;
@@ -112,8 +110,7 @@ export default {
 
             axios({
                 method: "GET",
-                baseURL: api.host,
-                url: `/privacy`,
+                url: "/privacy",
             })
                 .then((resp) => {
                     const data = resp.data;
@@ -142,7 +139,7 @@ export default {
             } else {
                 axios({
                     method: "POST",
-                    url: `${api.host}/auth/update`,
+                    url: "/auth/update",
                     headers: {
                         Authorization: getToken(),
                     },

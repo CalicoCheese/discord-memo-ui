@@ -19,7 +19,6 @@
 import axios from "axios";
 import { ref } from "vue";
 import { parse } from "marked";
-import { api } from "@/config";
 import { defaultError, getDate } from "@/utils";
 
 export default {
@@ -31,7 +30,7 @@ export default {
         const fetchToS = () => {
             axios({
                 method: "GET",
-                url: `${api.host}/tos`,
+                url: "/tos",
             })
                 .then((resp) => {
                     const data = resp.data;

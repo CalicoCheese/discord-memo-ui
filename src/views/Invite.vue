@@ -11,7 +11,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import { api } from "@/config";
 
 export default {
     name: "invite-discord-bot",
@@ -19,7 +18,7 @@ export default {
         const router = useRouter();
 
         axios({
-            url: `${api.host}/bot/get-url`,
+            url: `/bot/get-url`,
         })
             .then((resp) => {
                 const data = resp.data;

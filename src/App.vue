@@ -51,7 +51,7 @@
 import { ref, watch } from "vue";
 import { useLoading } from "vue-loading-overlay";
 import axios from "axios";
-import { home } from "@/config";
+import { home, api } from "@/config";
 import { login } from "@/utils";
 
 export default {
@@ -79,6 +79,9 @@ export default {
                 }
             }
         });
+
+        // axios 전역 설정
+        axios.defaults.baseURL = api.host;
 
         // axios 요청 시작시 스피너 보이기
         axios.interceptors.request.use(

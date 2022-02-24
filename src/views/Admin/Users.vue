@@ -55,7 +55,6 @@
 import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { api } from "@/config";
 import { login, getToken } from "@/utils";
 import { defaultError, getDate } from "@/utils";
 
@@ -75,7 +74,7 @@ export default {
         const fetchUsers = () => {
             axios({
                 method: "GET",
-                url: `${api.host}/admin/users`,
+                url: `/admin/users`,
                 headers: {
                     Authorization: getToken(),
                 },

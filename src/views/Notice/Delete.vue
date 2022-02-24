@@ -11,8 +11,8 @@
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { api } from "@/config";
-import { login, getToken, defaultError } from "@/utils";
+import { login, getToken } from "@/utils";
+import { defaultError } from "@/utils";
 
 export default {
     name: "notice-delete",
@@ -24,7 +24,7 @@ export default {
         if (login()) {
             axios({
                 method: "DELETE",
-                url: `${api.host}/notice/${id}`,
+                url: `/notice/${id}`,
                 headers: {
                     Authorization: getToken(),
                 },

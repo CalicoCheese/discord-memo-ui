@@ -12,7 +12,7 @@ import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { defaultError } from "@/utils";
-import { api, token } from "@/config";
+import { token } from "@/config";
 
 export default {
     name: "auth-callback-from-discord-oauth",
@@ -32,7 +32,7 @@ export default {
             });
         } else {
             axios({
-                url: `${api.host}/auth/callback`,
+                url: "/auth/callback",
                 params: {
                     code: code,
                 },

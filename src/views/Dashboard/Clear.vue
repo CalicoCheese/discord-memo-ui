@@ -11,7 +11,6 @@
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
 import axios from "axios";
-import { api } from "@/config";
 import { login, getToken } from "@/utils";
 import { defaultError } from "@/utils";
 
@@ -34,7 +33,7 @@ export default {
                 if (swalResp.isConfirmed) {
                     axios({
                         method: "DELETE",
-                        url: `${api.host}/memo`,
+                        url: "/memo",
                         headers: {
                             Authorization: getToken(),
                         },

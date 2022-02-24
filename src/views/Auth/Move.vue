@@ -11,7 +11,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import { api } from "@/config";
 import { login } from "@/utils";
 
 export default {
@@ -23,7 +22,7 @@ export default {
             router.push({ name: "Memo" });
         } else {
             axios({
-                url: `${api.host}/auth/get-url`,
+                url: `/auth/get-url`,
             })
                 .then((resp) => {
                     const data = resp.data;

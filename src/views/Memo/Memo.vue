@@ -77,7 +77,6 @@ import sha256 from "node-forge/lib/sha256";
 import { createBuffer } from "node-forge/lib/util";
 import { createCipher, createDecipher } from "node-forge/lib/cipher";
 import { getBytesSync } from "node-forge/lib/random";
-import { api } from "@/config";
 import { getToken, login } from "@/utils";
 import { defaultError, getDate } from "@/utils";
 import { setAdmin, notAdmin } from "@/utils";
@@ -267,7 +266,7 @@ export default {
         const fetchMemo = () => {
             axios({
                 method: "GET",
-                url: `${api.host}/memo`,
+                url: "/memo",
                 params: {
                     after: lastId.value,
                 },
@@ -320,9 +319,11 @@ export default {
                 router.push({ name: "Home" });
             });
         } else {
+            console.log(axios.defaults);
+
             axios({
                 method: "GET",
-                url: `${api.host}/auth/check`,
+                url: "/auth/check",
                 headers: {
                     Authorization: getToken(),
                 },

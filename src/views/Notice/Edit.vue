@@ -67,7 +67,7 @@ import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { api, notice } from "@/config";
+import { notice } from "@/config";
 import { getToken, defaultError } from "@/utils";
 
 export default {
@@ -91,7 +91,7 @@ export default {
         const fetchNotice = () => {
             axios({
                 method: "GET",
-                url: `${api.host}/notice/${id}`,
+                url: `/notice/${id}`,
             })
                 .then((resp) => {
                     const data = resp.data;
@@ -107,7 +107,7 @@ export default {
         const btnHandle = () => {
             axios({
                 method: "POST",
-                url: `${api.host}/notice/${id}`,
+                url: `/notice/${id}`,
                 headers: {
                     Authorization: getToken(),
                 },

@@ -130,7 +130,6 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
-import { api } from "@/config";
 import { getToken, getPayload, getDate } from "@/utils";
 import { defaultError } from "@/utils";
 
@@ -156,7 +155,7 @@ export default {
 
         axios({
             method: "GET",
-            url: `${api.host}/dashboard`,
+            url: `/dashboard`,
             headers: {
                 Authorization: getToken(),
             },

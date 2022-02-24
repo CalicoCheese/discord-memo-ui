@@ -65,7 +65,6 @@
 <script>
 import axios from "axios";
 import { ref } from "vue";
-import { api } from "@/config";
 import { defaultError, getDate } from "@/utils";
 import { isAdmin } from "@/utils";
 
@@ -119,7 +118,7 @@ export default {
         const fetchNotice = () => {
             axios({
                 method: "GET",
-                url: `${api.host}/notice`,
+                url: "/notice",
                 params: {
                     page: page.value,
                 },
