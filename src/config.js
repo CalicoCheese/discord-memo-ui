@@ -7,7 +7,6 @@ export const api = {
 
 export const token = {
     key: "dmui-token",
-    password: "dmui-pw",
     admin: "dmui-admin",
 };
 
