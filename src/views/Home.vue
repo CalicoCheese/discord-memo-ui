@@ -6,15 +6,6 @@
                 <p>디스코드 봇한테 DM을 보내면 메모가 등록됩니다.</p>
             </div>
 
-            <div v-if="isLogin == true" class="dmui-m-bt">
-                <router-link
-                    class="button is-primary is-medium is-light"
-                    :to="{ name: 'Memo' }"
-                >
-                    메모 보러가기
-                </router-link>
-            </div>
-
             <div>
                 <router-link
                     class="button is-link is-medium"
@@ -119,10 +110,6 @@ export default {
 </script>
 
 <style scoped>
-.dmui-m-bt {
-    margin-bottom: 5px;
-}
-
 .button {
     margin-right: 5px;
 }

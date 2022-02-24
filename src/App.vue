@@ -12,7 +12,9 @@
                 </div>
                 <div class="column">
                     <div class="column">
-                        <router-link :to="{ name: 'Home' }">홈</router-link>
+                        <router-link :to="{ name: 'Memo' }">
+                            메모 관리
+                        </router-link>
                     </div>
                     <div class="column">
                         <router-link :to="{ name: 'Dashboard.View' }">

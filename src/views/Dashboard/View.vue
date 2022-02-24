@@ -117,12 +117,6 @@
             >
                 계정 삭제
             </router-link>
-            <router-link
-                class="button is-primary is-medium is-light"
-                :to="{ name: 'Memo' }"
-            >
-                메모 보러가기
-            </router-link>
         </div>
     </section>
 </template>
