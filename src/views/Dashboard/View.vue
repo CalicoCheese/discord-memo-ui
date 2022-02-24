@@ -6,7 +6,7 @@
                 <p>
                     현재
                     <b class="has-text-link">
-                        {{ userInfo.username }}#{{ userInfo.discriminator }}
+                        {{ user.username }}#{{ user.discriminator }}
                     </b>
                     유저로 로그인되어 있습니다.
                 </p>
@@ -38,7 +38,7 @@
             <div class="content is-large">
                 <p v-if="admin == true">
                     <span class="has-text-link">
-                        {{ userInfo.username }}
+                        {{ user.username }}
                     </span>
                     님은
                     <router-link
@@ -51,7 +51,7 @@
                 </p>
                 <p>
                     <span class="has-text-link">
-                        {{ userInfo.username }}
+                        {{ user.username }}
                     </span>
                     님은
                     <span class="has-text-link">
@@ -61,7 +61,7 @@
                 </p>
                 <p>
                     <span class="has-text-link">
-                        {{ userInfo.username }}
+                        {{ user.username }}
                     </span>
                     님은
                     <span class="has-text-link">
@@ -71,7 +71,7 @@
                 </p>
                 <p>
                     <span class="has-text-link">
-                        {{ userInfo.username }}
+                        {{ user.username }}
                     </span>
                     님은
                     <span class="has-text-link">
@@ -81,7 +81,7 @@
                 </p>
                 <p>
                     <span class="has-text-link">
-                        {{ userInfo.username }}
+                        {{ user.username }}
                     </span>
                     님은 총
                     <span class="has-text-link">{{ memo_count }}</span>
@@ -89,7 +89,7 @@
                 </p>
                 <p>
                     <span class="has-text-link">
-                        {{ userInfo.username }}
+                        {{ user.username }}
                     </span>
                     님의 메모는
                     <span class="has-text-link">
@@ -169,7 +169,7 @@ export default {
 
         return {
             display: true,
-            userInfo: payload.user,
+            user: payload.user,
             getDate,
             creation_date,
             tos_agree_date,
