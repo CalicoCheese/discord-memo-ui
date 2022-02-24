@@ -67,7 +67,17 @@
                     <span class="has-text-link">
                         {{ getDate(tos_agree_date) }}
                     </span>
-                    에 서비스 이용약관에 동의했습니다.
+                    에 등록된 서비스 이용약관에 동의했습니다.
+                </p>
+                <p>
+                    <span class="has-text-link">
+                        {{ userInfo.username }}
+                    </span>
+                    님은
+                    <span class="has-text-link">
+                        {{ getDate(privacy_agree_date) }}
+                    </span>
+                    에 등록된 개인정보 처리방침에 동의했습니다.
                 </p>
                 <p>
                     <span class="has-text-link">
@@ -138,6 +148,7 @@ export default {
 
         const creation_date = ref(0);
         const tos_agree_date = ref(0);
+        const privacy_agree_date = ref(0);
         const memo_count = ref(0);
         const enc_memo_count = ref(0);
         const last_login = ref(0);
@@ -155,6 +166,7 @@ export default {
 
                 creation_date.value = data.data.creation_date;
                 tos_agree_date.value = data.data.tos_agree_date;
+                privacy_agree_date.value = data.data.privacy_agree_date;
                 memo_count.value = data.data.memo_count;
                 enc_memo_count.value = data.data.enc_memo_count;
                 last_login.value = data.data.last_login;
@@ -168,6 +180,7 @@ export default {
             getDate,
             creation_date,
             tos_agree_date,
+            privacy_agree_date,
             memo_count,
             enc_memo_count,
             last_login,

@@ -13,11 +13,12 @@
             <table class="table is-fullwidth is-hoverable">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>분류</th>
                         <th>유저 식별자</th>
                         <th>메모 사용량</th>
                         <th>서비스 가입일</th>
-                        <th>약관 동의일자</th>
+                        <th>서비스 약관</th>
+                        <th>개인정보 처리방침</th>
                         <th>마지막 로그인 시간</th>
                         <th>마지막 로그인 시점</th>
                     </tr>
@@ -29,6 +30,7 @@
                         <td>#</td>
                         <td>{{ getDate(user.creation_date) }}</td>
                         <td>{{ getDate(user.tos_agree_date) }}</td>
+                        <td>{{ getDate(user.privacy_agree_date) }}</td>
                         <td>{{ getDate(user.last_login) }}</td>
                         <td>{{ Math.round(user.flow / 86400) }} days</td>
                     </tr>
