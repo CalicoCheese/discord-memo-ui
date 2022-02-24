@@ -36,7 +36,7 @@ export default {
                 if (swalResp.isConfirmed) {
                     axios({
                         method: "DELETE",
-                        url: "/auth/@me",
+                        url: "/auth",
                         headers: {
                             Authorization: getToken(),
                         },
