@@ -19,7 +19,7 @@
             </div>
             <div class="content is-large" v-else>
                 <p>
-                    계정 정보를 확인하고 수정하려면
+                    계정 정보를 확인하려면 메모 서비스에
                     <span class="has-text-link">로그인</span>해야 합니다.
                 </p>
                 <router-link
