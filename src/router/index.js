@@ -132,6 +132,14 @@ const routes = [
             ),
     },
 
+    // Admin part
+    {
+        path: "/admin/users",
+        name: "Admin.Users",
+        component: () =>
+            import(/* webpackChunkName: "admin" */ "@/views/Admin/Users.vue"),
+    },
+
     // 404
     {
         path: "/:catchAll(.*)*",

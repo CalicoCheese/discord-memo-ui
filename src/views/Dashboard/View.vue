@@ -40,7 +40,14 @@
                     <span class="has-text-link">
                         {{ userInfo.username }}
                     </span>
-                    님은 <b class="has-text-danger">관리자</b> 입니다.
+                    님은
+                    <router-link
+                        class="has-text-danger"
+                        :to="{ name: 'Admin.Users' }"
+                    >
+                        관리자
+                    </router-link>
+                    입니다.
                 </p>
                 <p>
                     <span class="has-text-link">
