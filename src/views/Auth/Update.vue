@@ -89,6 +89,10 @@ export default {
         const tos_agree = ref(false);
         const pri_agree = ref(false);
 
+        // data
+        const tos_date = ref(0);
+        const pri_date = ref(0);
+
         // html
         const tos = ref("<p>잠시만요! 불러오고 있습니다...</p>");
         const privacy = ref("<p>잠시만요! 불러오고 있습니다...</p>");
@@ -102,6 +106,7 @@ export default {
                 .then((resp) => {
                     const data = resp.data;
                     tos.value = parse(data.data.text);
+                    tos_date.value = data.data.date;
                 })
                 .catch((err) => defaultError(err));
 
@@ -113,6 +118,7 @@ export default {
                 .then((resp) => {
                     const data = resp.data;
                     privacy.value = parse(data.data.text);
+                    pri_date.value = data.data.date;
                 })
                 .catch((err) => defaultError(err));
         };
@@ -139,6 +145,10 @@ export default {
                     url: `${api.host}/auth/update`,
                     headers: {
                         Authorization: getToken(),
+                    },
+                    data: {
+                        tos: tos_date.value,
+                        privacy: pri_date.value,
                     },
                 })
                     .then((resp) => {
