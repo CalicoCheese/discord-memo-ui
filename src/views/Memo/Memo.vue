@@ -396,6 +396,6 @@ export default {
 }
 
 .textarea {
-    height: 1200px;
+    height: 300px;
 }
 </style>
