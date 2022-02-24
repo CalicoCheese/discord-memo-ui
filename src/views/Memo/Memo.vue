@@ -336,27 +336,32 @@ export default {
                         notAdmin();
                     }
 
-                    if (data.data.skipped) {
+                    const agree = data.data.agree;
+
+                    // flag check
+                    if (agree === true) {
+                        // 메모 불러오기
+                        fetchMemo();
+                    } else if (agree == false) {
+                        // 약관이 수정된 경우
                         Swal.fire({
                             icon: "warning",
-                            text: "등록된 '서비스 이용약관'이 없습니다.",
-                            timer: 2022,
-                            timerProgressBar: true,
-                        }).then(() => {
-                            // 메모 불러오기
-                            fetchMemo();
-                        });
-                    } else if (!data.data.passed) {
-                        Swal.fire({
-                            icon: "error",
-                            text: "'서비스 이용약관'이 변경되어 다시 동의해야 합니다.",
-                            timer: 2022,
-                            timerProgressBar: true,
+                            html: data.meta.message,
                         }).then(() => {
                             router.push({ name: "Auth.Update" });
                         });
-                    } else {
-                        fetchMemo();
+                    } else if (agree == null) {
+                        // 약관이 등록되지 않은 경우
+                        Swal.fire({
+                            icon: "error",
+                            html: data.meta.message,
+                        }).then(() => {
+                            if (data.data.admin) {
+                                router.push({ name: "Notice.New" });
+                            } else {
+                                router.push({ name: "Home" });
+                            }
+                        });
                     }
                 })
                 .catch((err) => defaultError(err));
