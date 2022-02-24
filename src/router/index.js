@@ -124,8 +124,8 @@ const routes = [
             ),
     },
     {
-        path: "/dashboard/delete/@me",
-        name: "Dashboard.Delete.@me",
+        path: "/dashboard/delete-user",
+        name: "Dashboard.Delete",
         component: () =>
             import(
                 /* webpackChunkName: "dashboard" */ "@/views/Dashboard/Delete.vue"

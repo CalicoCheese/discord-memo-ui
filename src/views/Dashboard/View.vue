@@ -113,7 +113,7 @@
             </router-link>
             <router-link
                 class="button is-dark is-medium"
-                :to="{ name: 'Dashboard.Delete.@me' }"
+                :to="{ name: 'Dashboard.Delete' }"
             >
                 계정 삭제
             </router-link>
