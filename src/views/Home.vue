@@ -8,7 +8,7 @@
 
             <div v-if="isLogin == true" class="dmui-m-bt">
                 <router-link
-                    class="button is-primary is-medium"
+                    class="button is-primary is-medium is-light"
                     :to="{ name: 'Memo' }"
                 >
                     메모 보러가기
