@@ -319,8 +319,6 @@ export default {
                 router.push({ name: "Home" });
             });
         } else {
-            console.log(axios.defaults);
-
             axios({
                 method: "GET",
                 url: "/auth/check",
