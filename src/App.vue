@@ -54,13 +54,9 @@ import { ref, watch } from "vue";
 import { useLoading } from "vue-loading-overlay";
 import axios from "axios";
 import { home, api } from "@/config";
-import { login } from "@/utils";
 
 export default {
     setup() {
-        // 푸터 로그인/로그아웃을 위한 변수
-        const isLogin = ref(login());
-
         // 스피너 객체를 보관하는 변수
         const loading = useLoading();
         let loadingObj = undefined;
@@ -100,11 +96,6 @@ export default {
         // 오류나거나 요청이 끝나면 스피터 숨기기
         axios.interceptors.response.use(
             (response) => {
-                setTimeout(() => {
-                    // 로그인 변수 갱신하기
-                    isLogin.value = login();
-                }, 3500);
-
                 spinner.value = false;
                 return response;
             },
@@ -116,7 +107,6 @@ export default {
 
         return {
             home,
-            isLogin,
         };
     },
 };
