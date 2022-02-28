@@ -20,11 +20,19 @@
         <meta property="og:url" content="https://memo.calicocheese.xyz/">
         <meta property="og:image" content="<%= BASE_URL %>icon-192.png">
     </head>
-<body>
-    <noscript>
-        <strong>이 웹사이트를 사용하려면 자바스크립트를 활성화 해야 합니다.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <body>
+        <noscript>
+            <strong>이 웹사이트를 사용하려면 자바스크립트를 활성화 해야 합니다.</strong>
+        </noscript>
+        <div id="app"></div>
+
+        <script>
+            if (window.document.documentMode) {
+                window.location = "microsoft-edge:" + window.location;
+                setTimeout(function() {
+                    window.location = 'https://go.microsoft.com/fwlink/?linkid=2135547';
+                }, 5);
+            }
+        </script>
     </body>
 </html>
