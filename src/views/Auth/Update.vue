@@ -71,15 +71,14 @@ import { useRouter } from "vue-router";
 import { parse } from "marked";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { getToken, login } from "@/utils";
-import { defaultError } from "@/utils";
+import { getToken, defaultError } from "@/utils";
+import { isLogin } from "@/login";
 
 export default {
     name: "auth-update",
     setup() {
         const router = useRouter();
-
-        if (!login()) {
+        if (!isLogin()) {
             router.push({ name: "Home" });
             return {};
         }

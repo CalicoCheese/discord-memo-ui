@@ -11,14 +11,14 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import { login } from "@/utils";
+import { isLogin } from "@/login";
 
 export default {
     name: "auth-move-to-discord-oauth",
     setup() {
         const router = useRouter();
 
-        if (login()) {
+        if (isLogin()) {
             router.push({ name: "Memo" });
         } else {
             axios({

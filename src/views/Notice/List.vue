@@ -66,7 +66,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import { defaultError, getDate } from "@/utils";
-import { isAdmin } from "@/utils";
+import { isAdmin } from "@/login";
 
 export default {
     name: "notice-show-list",

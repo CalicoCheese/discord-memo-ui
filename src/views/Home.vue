@@ -77,13 +77,13 @@
 <script>
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import { login } from "@/utils";
+import { isLogin } from "@/login";
 import { home } from "@/config";
 
 export default {
     name: "home-sweet-home",
     setup() {
-        if (login()) {
+        if (isLogin()) {
             const router = useRouter();
 
             Swal.fire({
@@ -102,7 +102,7 @@ export default {
         }
 
         return {
-            isLogin: login(),
+            isLogin: isLogin(),
             home,
         };
     },

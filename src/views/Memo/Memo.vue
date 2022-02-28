@@ -77,10 +77,9 @@ import sha256 from "node-forge/lib/sha256";
 import { createBuffer } from "node-forge/lib/util";
 import { createCipher, createDecipher } from "node-forge/lib/cipher";
 import { getBytesSync } from "node-forge/lib/random";
-import { getToken, login } from "@/utils";
-import { defaultError, getDate } from "@/utils";
-import { setAdmin, notAdmin } from "@/utils";
+import { getToken, defaultError, getDate } from "@/utils";
 import { createMemo, saveMemo } from "@/memo";
+import { isLogin, setAdmin } from "@/login";
 
 export default {
     name: "view-and-edit",
@@ -308,7 +307,7 @@ export default {
             showButton.value = true;
         };
 
-        if (!login()) {
+        if (!isLogin()) {
             Swal.fire({
                 icon: "warning",
                 text: "메모를 확인하려면 로그인해야 합니다.",
@@ -328,14 +327,9 @@ export default {
             })
                 .then((resp) => {
                     const data = resp.data;
-
-                    if (data.data.admin) {
-                        setAdmin();
-                    } else {
-                        notAdmin();
-                    }
-
                     const agree = data.data.agree;
+
+                    setAdmin(data.data.admin);
 
                     // flag check
                     if (agree === true) {

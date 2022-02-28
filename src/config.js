@@ -5,11 +5,6 @@ export const api = {
             : "http://localhost:5000",
 };
 
-export const token = {
-    key: "dmui-token",
-    admin: "dmui-admin",
-};
-
 export const home = {
     email: "mailto:team@calicocheese.xyz",
     profile: "https://github.com/CalicoCheese",

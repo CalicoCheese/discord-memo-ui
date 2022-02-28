@@ -12,7 +12,7 @@ import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { defaultError } from "@/utils";
-import { token } from "@/config";
+import { doLogin } from "@/login";
 
 export default {
     name: "auth-callback-from-discord-oauth",
@@ -40,8 +40,8 @@ export default {
                 .then((resp) => {
                     const data = resp.data;
 
-                    // 토큰 저장
-                    localStorage.setItem(token.key, data.data.token);
+                    // 로그인 처리
+                    doLogin(data.data.token);
 
                     if (data.meta.code == 201) {
                         router.push({ name: "Memo" });

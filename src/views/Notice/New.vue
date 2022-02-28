@@ -69,11 +69,17 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { notice } from "@/config";
 import { getToken, defaultError } from "@/utils";
+import { isLogin } from "@/login";
 
 export default {
     name: "new-or-create-notice",
     setup() {
         const router = useRouter();
+        if (isLogin()) {
+            router.push({ name: "Home" });
+            return {};
+        }
+
         const type = ref(0);
         const title = ref("");
         const text = ref("");

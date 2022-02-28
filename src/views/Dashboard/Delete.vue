@@ -11,17 +11,18 @@
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
 import axios from "axios";
-import { login, logout, getToken } from "@/utils";
-import { getPayload } from "@/utils";
+import { getToken, getPayload } from "@/utils";
 import { defaultError } from "@/utils";
+import { isLogin, clearLogin } from "@/login";
 
 export default {
     name: "dashboard-delete-me",
     setup() {
         const router = useRouter();
 
-        if (!login()) {
+        if (!isLogin()) {
             router.push({ name: "Memo" });
+            return {};
         } else {
             const payload = getPayload();
 
@@ -49,7 +50,7 @@ export default {
                                 timer: 2022,
                                 timerProgressBar: true,
                             }).then(() => {
-                                logout();
+                                clearLogin();
                                 router.push({ name: "Home" });
                             });
                         })

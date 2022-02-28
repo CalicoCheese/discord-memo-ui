@@ -132,7 +132,7 @@ export default {
     setup() {
         const payload = getPayload();
 
-        // 잘못된 인증토큰 또는 로그인 상태가 아님
+        // 잘못된 인증토큰이 저장된 경우
         if (payload == undefined) {
             return {
                 display: false,

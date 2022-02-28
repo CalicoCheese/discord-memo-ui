@@ -46,7 +46,7 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { Renderer, parse } from "marked";
 import { defaultError, getDate } from "@/utils";
-import { isAdmin } from "@/utils";
+import { isAdmin } from "@/login";
 
 export default {
     name: "view-notice",

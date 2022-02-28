@@ -55,15 +55,15 @@
 import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { login, getToken } from "@/utils";
+import { getToken } from "@/utils";
 import { defaultError, getDate } from "@/utils";
+import { isLogin } from "@/login";
 
 export default {
     name: "admin-user-list",
     setup() {
         const router = useRouter();
-
-        if (!login()) {
+        if (!isLogin()) {
             router.push({ name: "Home" });
             return {};
         }

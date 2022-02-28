@@ -11,16 +11,16 @@
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
 import axios from "axios";
-import { login, getToken } from "@/utils";
-import { defaultError } from "@/utils";
+import { getToken, defaultError } from "@/utils";
+import { isLogin } from "@/login";
 
 export default {
     name: "dashboard-clear-memos",
     setup() {
         const router = useRouter();
-
-        if (!login()) {
+        if (!isLogin()) {
             router.push({ name: "Memo" });
+            return {};
         } else {
             Swal.fire({
                 icon: "question",

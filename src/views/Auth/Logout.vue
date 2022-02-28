@@ -10,15 +10,15 @@
 <script>
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import { logout } from "@/utils";
+import { clearLogin } from "@/login";
 
 export default {
     name: "auth-logout",
     setup() {
         const router = useRouter();
 
-        // 모든 정보 삭제!
-        logout();
+        // 인증 정보 삭제!
+        clearLogin();
 
         Swal.fire({
             icon: "info",
