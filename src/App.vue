@@ -54,6 +54,8 @@ import { ref, watch } from "vue";
 import { useLoading } from "vue-loading-overlay";
 import axios from "axios";
 import { home, api } from "@/config";
+import { getPayload } from "@/utils";
+import { updateToken } from "@/login";
 
 export default {
     setup() {
@@ -97,6 +99,17 @@ export default {
         axios.interceptors.response.use(
             (response) => {
                 spinner.value = false;
+
+                // 토큰 만료까지 1시간 남았다면 토큰 연장하기
+                const payload = getPayload();
+
+                if (payload != undefined) {
+                    const now = Date.now() / 1000;
+                    if (payload.time.exp - now <= 3600) {
+                        updateToken();
+                    }
+                }
+
                 return response;
             },
             (error) => {
