@@ -79,7 +79,7 @@ import { createCipher, createDecipher } from "node-forge/lib/cipher";
 import { getBytesSync } from "node-forge/lib/random";
 import { getToken, defaultError, getDate } from "@/utils";
 import { createMemo, saveMemo } from "@/memo";
-import { isLogin, setAdmin } from "@/login";
+import { isLogin, setAdmin, updateToken } from "@/login";
 
 export default {
     name: "view-and-edit",
@@ -318,6 +318,9 @@ export default {
                 router.push({ name: "Home" });
             });
         } else {
+            // 토큰 연장하기
+            updateToken();
+
             axios({
                 method: "GET",
                 url: "/auth/check",
