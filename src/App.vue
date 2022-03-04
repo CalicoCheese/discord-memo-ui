@@ -56,6 +56,7 @@ import axios from "axios";
 import { home, api } from "@/config";
 import { getPayload } from "@/utils";
 import { updateToken } from "@/login";
+import { log } from "@/logger";
 
 export default {
     setup() {
@@ -76,9 +77,15 @@ export default {
             } else {
                 if (loadingObj != undefined) {
                     loadingObj.hide();
+                } else {
+                    log("App.vue", "경고! 등록된 스피너가 없습니다.");
                 }
             }
         });
+
+        const getUrl = (config) => {
+            return `${config.baseURL}${config.url}`;
+        };
 
         // axios 전역 설정
         axios.defaults.baseURL = api.host;
@@ -86,10 +93,14 @@ export default {
         // axios 요청 시작시 스피너 보이기
         axios.interceptors.request.use(
             (config) => {
+                log("axios", `요청 생성 ${getUrl(config)}`, "#ADD8E6");
+
                 spinner.value = true;
                 return config;
             },
             (error) => {
+                log("axios", `요청 실패 ${error}`, "#FF7F50");
+
                 spinner.value = false;
                 return Promise.reject(error);
             }
@@ -98,6 +109,8 @@ export default {
         // 오류나거나 요청이 끝나면 스피터 숨기기
         axios.interceptors.response.use(
             (response) => {
+                log("axios", `요청 성공 ${getUrl(response.config)}`, "#AAF0D1");
+
                 spinner.value = false;
 
                 // 토큰 만료까지 1시간 남았다면 토큰 연장하기
@@ -113,6 +126,10 @@ export default {
                 return response;
             },
             (error) => {
+                log("axios", `요청 실패 ${getUrl(error.config)}`, "#FF7F50");
+                log("axios", `isAxiosError: ${error.isAxiosError}`, "#FF7F50");
+                log("axios", error, "#FF7F50");
+
                 spinner.value = false;
                 return Promise.reject(error);
             }

@@ -2,6 +2,7 @@ import { Buffer } from "buffer/";
 import Swal from "sweetalert2";
 import router from "./router";
 import { getRawToken, isLogin, clearLogin } from "./login";
+import { log } from "@/logger";
 
 export function getToken() {
     let token = getRawToken();
@@ -34,6 +35,8 @@ export function getPayload() {
 
 export function defaultError(err) {
     if (err.response == undefined) {
+        log("utils.js", "알 수 없는 오류가 발생했습니다.");
+
         Swal.fire({
             icon: "error",
             text: "알 수 없는 오류가 발생했습니다.",
@@ -48,6 +51,8 @@ export function defaultError(err) {
         if (data.meta.code == 401) {
             clearLogin();
         }
+
+        log("utils.js", `오류발생! ${data}`);
 
         Swal.fire({
             icon: "error",

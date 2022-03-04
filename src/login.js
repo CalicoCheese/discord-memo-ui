@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getPayload, getToken } from "./utils";
+import { log } from "@/logger";
 
 const tokenKey = "dmui-token";
 const adminKey = "dmui-admin";
@@ -12,6 +13,7 @@ export function getRawToken() {
 export function doLogin(token) {
     // 로컬 스토리지에 토큰 저장
     localStorage.setItem(tokenKey, token);
+    log("login.js", "저장된 인증토큰이 변경되었습니다.");
 }
 
 export function isLogin() {
@@ -20,6 +22,7 @@ export function isLogin() {
     // 토큰이 없거나 올바르지 않다면
     if (payload == undefined) {
         // 로그인 상태가 아님
+        log("login.js", "등록된 올바른 형식의 인증 토큰이 없습니다.");
         return false;
     }
 
@@ -38,6 +41,7 @@ export function isLogin() {
     } else {
         // 토큰이 만료 상태임
         // - 유효시간보다 과거거나 만료시간보다 미래
+        log("login.js", "현재 등록된 인증 토큰은 유효한 토큰이 아닙니다.");
         return false;
     }
 }
@@ -61,20 +65,16 @@ export function updateToken() {
             doLogin(data.data.token);
             setAdmin(data.data.is_admin);
 
-            // eslint-disable-next-line
-            console.log("[login.js] 인증 토큰을 연장했습니다.");
+            log("login.js", "인증 토큰을 연장했습니다.");
         })
         .catch((err) => {
-            // eslint-disable-next-line
-            console.log("[login.js] 인증 토큰 연장 실패.");
+            log("login.js", "인증 토큰 연장 실패.");
 
             if (process.env.NODE_ENV !== "production") {
                 if (err.response == undefined) {
-                    // eslint-disable-next-line
-                    console.debug("--> API 서버 연결 실패");
+                    log("login.js", "API 서버 연결 실패.");
                 } else {
-                    // eslint-disable-next-line
-                    console.debug(err.response.data);
+                    log("login.js", err.response.data);
                 }
             }
         });
@@ -83,8 +83,10 @@ export function updateToken() {
 // admin part
 export function setAdmin(check) {
     if (check) {
+        log("login.js", "해당 유저는 관리자 입니다.");
         localStorage.setItem(adminKey, "yes");
     } else {
+        log("login.js", "해당 유저는 관리자가 아닙니다.");
         localStorage.setItem(adminKey, "no");
     }
 }

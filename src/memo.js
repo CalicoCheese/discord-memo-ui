@@ -1,6 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { getToken, defaultError } from "@/utils";
+import { log } from "@/logger";
 
 function fetchMemo(id, memos) {
     axios({
@@ -23,6 +24,8 @@ function fetchMemo(id, memos) {
             ctx.display = !ctx.encrypted;
 
             memos.value[ctx.id] = ctx;
+
+            log("memo.js", `${ctx.id} 번 메모를 불러왔습니다.`);
         })
         .catch((err) => defaultError(err));
 }
@@ -46,6 +49,8 @@ function editMemo(memo, memos) {
         },
     })
         .then((resp) => {
+            log("memo.js", `${memo.id} 번 메모를 수정했습니다.`);
+
             const data = resp.data;
             Swal.fire({
                 icon: "success",
@@ -68,6 +73,8 @@ function deleteMemo(memo, memos) {
         },
     })
         .then((resp) => {
+            log("memo.js", `${memo.id} 번 메모를 삭제했습니다.`);
+
             const data = resp.data;
             Swal.fire({
                 icon: "success",
@@ -82,6 +89,8 @@ function deleteMemo(memo, memos) {
 }
 
 export function saveMemo(memo, memos) {
+    log("memo.js", `${memo.id} 번 메모의 저장 요청이 들어왔습니다.`);
+
     if (memo.text.trim().length == 0) {
         deleteMemo(memo, memos);
     } else {
@@ -106,9 +115,11 @@ export function createMemo() {
                 },
             })
                 .then((resp) => {
+                    log("memo.js", "새로운 메모를 생성했습니다.");
                     resolve(resp);
                 })
                 .catch((err) => {
+                    log("memo.js", "새로운 메모를 생성하지 못 했습니다.");
                     reject(err);
                 });
         });
