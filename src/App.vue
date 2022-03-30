@@ -9,6 +9,9 @@
                     <div class="column">
                         <a :href="home.profile">Github</a>
                     </div>
+                    <div class="column">
+                        <router-link :to="{ name: 'Home' }">Home</router-link>
+                    </div>
                 </div>
                 <div class="column">
                     <div class="column">
